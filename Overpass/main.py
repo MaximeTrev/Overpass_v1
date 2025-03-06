@@ -83,7 +83,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         else:
             st.write("Erreur : dfOut is void")
         
-        # Interface utilisateur - Sélection des "Name"
+        """# Interface utilisateur - Sélection des "Name"
         st.write("Select companie(s) to filter for pie chart")
         selected_names = st.multiselect(
             "Companie(s) :", 
@@ -103,15 +103,15 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             
         # Afficher le Pie Chart
         fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)"""
 
 
         """#TEST 2"""
         @st.cache_data
         def get_pays_counts(df):
             return df["pays"].value_counts().reset_index().rename(columns={"index": "pays", "pays": "count"})
-        if "dfOut" not in st.session_state:
-            st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
+        #if "dfOut" not in st.session_state:
+            #st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
 
         # Sélection des valeurs uniques pour le filtre
         selected_names = st.multiselect(

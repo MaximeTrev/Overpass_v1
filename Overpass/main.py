@@ -79,7 +79,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
-        
+        """
         # 📌 2️⃣ Sélection des valeurs de la colonne "Name"
         selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
         
@@ -146,7 +146,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             fig = px.pie(name_counts, names="Name", values="count", title="Répartition par lieux (Name)")
             st.plotly_chart(fig, use_container_width=True)
         else:
-            st.warning("Aucune donnée disponible pour la sélection actuelle.")"""
+            st.warning("Aucune donnée disponible pour la sélection actuelle.")
 
         
         #TEST 2

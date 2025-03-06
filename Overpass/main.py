@@ -10,6 +10,8 @@ import CSS as css
 import mergeCountries as mc
 import operationsCSV as _csv
 
+# """ ADD TEXT HERE"""
+
 css_path = os.path.join(os.path.dirname(__file__), "styles.css")
 with open(css_path) as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -33,7 +35,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     
     listeFichiers, entreprise = [], ""
     dfOut = pd.DataFrame()
-    download = "Vous pouvez télécharger le tableau ci-dessous avec un bouton en laissant la souris sur le coin à droite du tableau (dernière colonne)."
+    #download = "Vous pouvez télécharger le tableau ci-dessous avec un bouton en laissant la souris sur le coin à droite du tableau (dernière colonne)."
     if option == NomEntreprise:
         entreprise = st.text_input("Nom de l'entreprise")
         progress_container.markdown(
@@ -75,7 +77,6 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
-        """onglets = st.tabs(Pays)"""
         Pays = Pays[:5]
         onglets = st.tabs(Pays)
         

@@ -92,17 +92,17 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
 
 
         # Sélection des valeurs de la colonne "name"
-        selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["name"].unique(), default=dfOut["name"].unique())
+        selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
         
         # Filtrer le DataFrame en fonction de la sélection
-        filtered_df = dfOut[dfOut["name"].isin(selected_names)]
+        filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
         
         # Créer un Pie Chart basé sur la colonne "amenity"
         if not filtered_df.empty:  # Vérifie qu'il y a des données après filtrage
-            amenity_counts = filtered_df["amenity"].value_counts().reset_index()
-            amenity_counts.columns = ["amenity", "count"]
+            country_counts = filtered_df["pays"].value_counts().reset_index()
+            country_counts.columns = ["pays", "count"]
         
-            fig = px.pie(amenity_counts, names="amenity", values="count", title="Répartition des services (amenity)")
+            fig = px.pie(country_counts, names="pays", values="count", title="Breakdown by country")
         
             # Afficher le graphique
             st.plotly_chart(fig, use_container_width=True)

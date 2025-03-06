@@ -39,7 +39,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     if option == NomEntreprise:
         entreprise = st.text_input("Company name")
         progress_container.markdown(
-            '<span class="progress-bar-container">Chargement des données<div class="progress-bar" id="progress"></div></span>',
+            '<span class="progress-bar-container">Loading bar<div class="progress-bar" id="progress"></div></span>',
             unsafe_allow_html=True
         )
         if entreprise != "":
@@ -56,7 +56,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         uploaded_file = st.file_uploader("Sélectionner un fichier CSV", type=["csv"])
         
         progress_container.markdown(
-            '<span class="progress-bar-container">Chargement des données<div class="progress-bar" id="progress"></div></span>',
+            '<span class="progress-bar-container">Loading ...<div class="progress-bar" id="progress"></div></span>',
             unsafe_allow_html=True
         )
         

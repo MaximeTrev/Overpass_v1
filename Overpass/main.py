@@ -125,9 +125,9 @@ def show_map(df):
 def load() :
     #st.title("Cat'Map v2")
     st.markdown("<h1 style='text-align: center; color: #bd8e43;'>Cat'Map v2</h1>", unsafe_allow_html=True)
+    st.markdown('<div>', unsafe_allow_html=True)
     SquareManagement = os.path.join(os.path.dirname(__file__), "SquareManagement.png")
     st.image(SquareManagement)
-    st.markdown('<div>', unsafe_allow_html=True)
     NomEntreprise = "Geolocation of company buildings by name"
     FichierCSV = "Geolocation of company buildings by csv file"
     option = st.radio("Select the chosen method :", (NomEntreprise, FichierCSV))

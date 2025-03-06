@@ -106,6 +106,13 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
 
         """TEST 2"""
         # Sélection des valeurs uniques pour le filtre
+
+        @st.cache_data
+        def load_data():
+            return dfOut
+
+        dfOut = load_data()
+
         selected_names = st.multiselect("Sélectionnez des valeurs de 'Name'", dfOut["Name"].unique())
         
         @st.experimental_fragment

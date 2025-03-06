@@ -112,11 +112,12 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             return dfOut
 
         dfOut = load_data()
-
+        st.write(dfOut)
         selected_names = st.multiselect("Sélectionnez des valeurs de 'Name'", dfOut["Name"].unique())
         
         @st.experimental_fragment
         def plot_pie_chart(selected_names):
+            st.write("In")
             if not selected_names:
                 st.write("Sélectionnez au moins une valeur pour afficher le graphique.")
                 return

@@ -107,43 +107,43 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
 
 
         #TEST
-         # 📌 1️⃣ Récupérer la liste unique des pays
-        unique_pays = dfOut["pays"].unique()
+         # 📌 1️⃣ Récupérer la liste unique des "Name"
+        unique_names = dfOut["Name"].unique()
         
-        # 📌 2️⃣ Formulaire avec colonnes
+        # 📌 2️⃣ Formulaire avec colonnes pour sélectionner les "Name"
         with st.form("selection_form"):
-            st.write("### Sélectionnez les pays à afficher :")
+            st.write("### Sélectionnez les lieux à afficher :")
         
-            # Création des colonnes (on limite à 3 colonnes max pour une bonne lisibilité)
-            cols = st.columns(min(len(unique_pays), 3))
+            # Création des colonnes (on limite à 3 colonnes max pour une bonne disposition)
+            cols = st.columns(min(len(unique_names), 3))
         
             # Stocker les choix de l'utilisateur
-            pays_selectionnes = {}
+            name_selectionnes = {}
         
-            # Affichage des cases à cocher pour chaque pays dans les colonnes
-            for idx, pays in enumerate(unique_pays):
+            # Affichage des cases à cocher pour chaque "Name" réparti en colonnes
+            for idx, name in enumerate(unique_names):
                 col_idx = idx % 3  # Répartir sur 3 colonnes
-                pays_selectionnes[pays] = cols[col_idx].checkbox(pays, value=True)
+                name_selectionnes[name] = cols[col_idx].checkbox(name, value=True)
         
             # Bouton de soumission
             submitted = st.form_submit_button("Appliquer le filtre")
         
         # 📌 3️⃣ Filtrer le DataFrame en fonction de la sélection
-        selected_pays = [p for p, checked in pays_selectionnes.items() if checked]
-        filtered_df = dfOut[dfOut["pays"].isin(selected_pays)]
+        selected_names = [n for n, checked in name_selectionnes.items() if checked]
+        filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
         
         if submitted and not filtered_df.empty:
-            pays_counts = get_pays_counts(filtered_df)
+            name_counts = get_name_counts(filtered_df)
         
             # 📌 5️⃣ Limiter à 10 catégories max
-            if len(pays_counts) > 10:
-                top_pays = pays_counts.iloc[:10]
-                other_count = pays_counts.iloc[10:]["count"].sum()
-                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
-                pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
+            if len(name_counts) > 10:
+                top_names = name_counts.iloc[:10]
+                other_count = name_counts.iloc[10:]["count"].sum()
+                other_row = pd.DataFrame([["Autres", other_count]], columns=["Name", "count"])
+                name_counts = pd.concat([top_names, other_row], ignore_index=True)
         
             # 📌 6️⃣ Afficher le Pie Chart
-            fig = px.pie(pays_counts, names="pays", values="count", title="Répartition par pays")
+            fig = px.pie(name_counts, names="Name", values="count", title="Répartition par lieux (Name)")
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning("Aucune donnée disponible pour la sélection actuelle.")

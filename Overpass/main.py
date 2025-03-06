@@ -83,7 +83,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         else:
             st.write("Erreur : dfOut is void")
         
-        """# Interface utilisateur - Sélection des "Name"
+        # Interface utilisateur - Sélection des "Name"
         st.write("Select companie(s) to filter for pie chart")
         selected_names = st.multiselect(
             "Companie(s) :", 
@@ -103,52 +103,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             
         # Afficher le Pie Chart
         fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
-        st.plotly_chart(fig, use_container_width=True)"""
-
-
-        """#TEST 2"""
-        @st.cache_data
-        def get_pays_counts(df):
-            return df["pays"].value_counts().reset_index().rename(columns={"index": "pays", "pays": "count"})
-        #if "dfOut" not in st.session_state:
-            #st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
-
-        # Sélection des valeurs uniques pour le filtre
-        selected_names = st.multiselect(
-            "Select companie(s) to filter for pie chart",
-            st.session_state.dfOut["Name"].unique(),
-            default=st.session_state.dfOut["Name"].unique()  # Tout sélectionner par défaut
-        )
-        
-        # Vérifier si la sélection a changé pour éviter un recalcul inutile
-        if "last_selected_names" not in st.session_state or st.session_state.last_selected_names != selected_names:
-            st.session_state.last_selected_names = selected_names
-        
-            # Appliquer le filtre sur dfOut
-            filtered_df = st.session_state.dfOut[st.session_state.dfOut["Name"].isin(selected_names)]
-            
-            if filtered_df.empty:
-                st.write("No data available")
-            else:
-                pays_counts = get_pays_counts(filtered_df)
-        
-                # **Limiter aux 10 pays avec le plus de compagnies**
-                pays_counts = pays_counts.sort_values(by="count", ascending=False)
-        
-                if len(pays_counts) > 10:
-                    top_pays = pays_counts.iloc[:10]
-                    other_count = pays_counts.iloc[10:]["count"].sum()
-                    other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
-                    pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
-        
-                # Créer et afficher le graphique
-                fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
-                st.plotly_chart(fig, use_container_width=True)
-
-
-
-
-        
+        st.plotly_chart(fig, use_container_width=True)
 
         #TEST 3: 2x plus rapide
         if "dfOut" not in st.session_state:
@@ -170,22 +125,11 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 return
         
             # Comptage des occurrences par pays
-            #pie_data = filtered_df["pays"].value_counts().reset_index()
-            #pie_data.columns = ["pays", "count"]
+            pie_data = filtered_df["pays"].value_counts().reset_index()
+            pie_data.columns = ["pays", "count"]
         
             # Limiter à 10 catégories maximum
-            #pie_data = pie_data.head(10)
-
-             # Appliquer le filtre sur dfOut
-            filtered_df = st.session_state.dfOut[st.session_state.dfOut["Name"].isin(selected_names)]
-            pays_counts = get_pays_counts(filtered_df)
-
-            # Limiter à 10 catégories max
-            if len(pays_counts) > 10:
-                top_pays = pays_counts.iloc[:10]
-                other_count = pays_counts.iloc[10:]["count"].sum()
-                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
-                pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
+            pie_data = pie_data.head(10)
         
             # Création du graphique
             #fig = px.pie(pie_data, names="pays", values="count", title="Breakdown of selected companie(s) by country")

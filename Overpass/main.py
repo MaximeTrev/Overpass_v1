@@ -90,10 +90,9 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             i+=1
             st.write(pays)"""
 
-
-        # Sélection des valeurs de la colonne "name"
-        selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
         
+        """# Sélection des valeurs de la colonne "name"
+        selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
         # Filtrer le DataFrame en fonction de la sélection
         filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
         
@@ -105,6 +104,36 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             fig = px.pie(country_counts, names="pays", values="count", title="Breakdown by country")
         
             # Afficher le graphique
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("Aucune donnée disponible pour la sélection actuelle.")"""
+
+
+
+        # 📌 1️⃣ Sélection des valeurs de la colonne "name"
+        selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["name"].unique(), default=dfOut["name"].unique())
+        
+        # 📌 2️⃣ Filtrer le DataFrame en fonction de la sélection
+        filtered_df = dfOut[dfOut["name"].isin(selected_names)]
+        
+        # 📌 3️⃣ Compter les occurrences de chaque "amenity"
+        if not filtered_df.empty:
+            amenity_counts = filtered_df["pays"].value_counts().reset_index()
+            amenity_counts.columns = ["pays", "count"]
+        
+            # 📌 4️⃣ Limiter à 10 catégories max
+            if len(amenity_counts) > 10:
+                top_country = amenity_counts.iloc[:10]  # Les 10 premiers
+                other_count = amenity_counts.iloc[10:]["count"].sum()  # Somme des autres
+        
+                # Ajouter une ligne "Autres" si nécessaire
+                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
+                country_counts = pd.concat([top_country, other_row], ignore_index=True)
+        
+            # 📌 5️⃣ Création du Pie Chart
+            fig = px.pie(country_counts, names="pays", values="count", title="Breakdown by country")
+        
+            # 📌 6️⃣ Afficher le graphique
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning("Aucune donnée disponible pour la sélection actuelle.")

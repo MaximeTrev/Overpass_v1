@@ -33,7 +33,7 @@ def pieChart(pays,entreprise, _effectif, effectif) :
 def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     listeFichiers, entreprise = [], ""
     dfOut = pd.DataFrame()
-    download = "Preview of results (download available)"
+    download = "Preview (download available)"
     
     if option == NomEntreprise:
         entreprise = st.text_input("Company name")
@@ -66,6 +66,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             dfOut = _csv.fromJSONtoDataFrame(listeFichiers)
             dfOut, Pays = mc.findCountry(dfOut)
             st.write(download)
+            st.write(f"Results: {dfOut.shape[0]}")
             entreprises.pop()
             st.dataframe(dfOut)
             show_map(dfOut) 

@@ -46,6 +46,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             dfOut = _csv.fromJSONtoDataFrame(listeFichiers)
             dfOut, Pays = mc.findCountry(dfOut)
             st.write(download)
+            st.write(f"Results: {dfOut.shape[0]})
             st.dataframe(dfOut)
             show_map(dfOut)
                

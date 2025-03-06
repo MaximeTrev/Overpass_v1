@@ -38,7 +38,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     if option == NomEntreprise:
         entreprise = st.text_input("Company name")
         progress_container.markdown(
-            '<span class="progress-bar-container">Loading bar<div class="progress-bar" id="progress"></div></span>',
+            '<span class="progress-bar-container">Loading ...<div class="progress-bar" id="progress"></div></span>',
             unsafe_allow_html=True
         )
         if entreprise != "":

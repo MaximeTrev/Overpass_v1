@@ -79,6 +79,11 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
+        if dfOut is not None:
+            st.session_state.dfOut = dfOut
+        else:
+            st.write("Erreur : dfOut est vide ou non défini")
+
         st.write(st.session_state)
         if "dfOut" not in st.session_state:
             st.write("ok")

@@ -146,9 +146,9 @@ def load() :
     # Afficher le logo en haut à droite
     #st.markdown('<div class="logo-container"><img src="Overpass/PNG/SquareManagement.png"></div>', unsafe_allow_html=True)
     with open("Overpass/PNG/SquareManagement.png", "rb") as img_file:
-    st.markdown(
-        f'<div class="logo-container"><img src="data:image/png;base64,{img_file.read().hex()}"></div>',
-        unsafe_allow_html=True,
+        st.markdown(
+            f'<div class="logo-container"><img src="data:image/png;base64,{img_file.read().hex()}"></div>',
+            unsafe_allow_html=True,
     
     NomEntreprise = "Geolocation of company buildings by name"
     FichierCSV = "Geolocation of company buildings by csv file"

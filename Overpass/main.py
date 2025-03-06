@@ -89,10 +89,8 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             options=st.session_state.dfOut["Name"].unique(),
             default=st.session_state.dfOut["Name"].unique()  # Tout sélectionné par défaut
         )
-        
         # Appliquer le filtre sur dfOut
         filtered_df = st.session_state.dfOut[st.session_state.dfOut["Name"].isin(selected_names)]
-        
         pays_counts = get_pays_counts(filtered_df)
         
         # Limiter à 10 catégories max
@@ -101,11 +99,40 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             other_count = pays_counts.iloc[10:]["count"].sum()
             other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
             pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
-        
+            
         # Afficher le Pie Chart
         fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
         st.plotly_chart(fig, use_container_width=True)
-    
+
+        """TEST 2"""
+        # Sélection des valeurs uniques pour le filtre
+        selected_names = st.multiselect("Sélectionnez des valeurs de 'Name'", dfOut["Name"].unique())
+        
+        @st.experimental_fragment
+        def plot_pie_chart(selected_names):
+            if not selected_names:
+                st.write("Sélectionnez au moins une valeur pour afficher le graphique.")
+                return
+        
+            filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
+            if filtered_df.empty:
+                st.write("Aucune donnée disponible pour la sélection actuelle.")
+                return
+        
+            # Comptage des occurrences par pays
+            pie_data = filtered_df["pays"].value_counts().reset_index()
+            pie_data.columns = ["pays", "count"]
+        
+            # Limiter à 10 catégories maximum
+            pie_data = pie_data.head(10)
+        
+            # Création du graphique
+            fig = px.pie(pie_data, names="pays", values="count", title="Répartition par pays")
+            
+            st.plotly_chart(fig, use_container_width=True)
+        
+        # Afficher le graphique
+        plot_pie_chart(selected_names)
         
     except:
         pass

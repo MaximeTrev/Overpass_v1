@@ -126,7 +126,7 @@ def load() :
     #st.title("Cat'Map v2")
     st.markdown("<h1 style='text-align: center; color: #bd8e43;'>Cat'Map v2</h1>", unsafe_allow_html=True)
     st.markdown('<div>', unsafe_allow_html=True)
-    st.image("Overpass/PNG/SquareManagement.png")
+    #st.image("Overpass/PNG/SquareManagement.png")
 
     # Appliquer du CSS pour positionner le logo en haut à droite
     st.markdown(

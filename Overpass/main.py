@@ -36,12 +36,6 @@ def get_pays_counts(df):
     pays_counts = df["pays"].value_counts().reset_index()
     pays_counts.columns = ["pays", "count"]
     return pays_counts
-
-@st.cache_data
-def get_pays_counts(df):
-    return df["pays"].value_counts().reset_index().rename(columns={"index": "pays", "pays": "count"})
-
-
     
 def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     listeFichiers, entreprise = [], ""
@@ -113,6 +107,9 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
 
 
         """#TEST 2"""
+        @st.cache_data
+        def get_pays_counts(df):
+            return df["pays"].value_counts().reset_index().rename(columns={"index": "pays", "pays": "count"})
         if "dfOut" not in st.session_state:
             st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
 

@@ -3,8 +3,10 @@ import geopandas as gpd
 from shapely.geometry import Point
 
 
-    
-countries = gpd.read_file("country_worldwide/curiexplore-pays.shp")[["geometry", "name_fr"]]
+file_path = os.path.join(os.path.dirname(__file__), "country_worldwide/curiexplore-pays.shp")
+countries = gpd.read_file(file_path)[["geometry", "name_fr"]]
+#countries = gpd.read_file("country_worldwide/curiexplore-pays.shp")[["geometry", "name_fr"]]
+
 gdf_countries = gpd.GeoDataFrame(countries)
 
 def findCountry(df, Pays=[]):

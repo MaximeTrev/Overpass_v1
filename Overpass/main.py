@@ -153,11 +153,11 @@ def show_map(df):
     folium_static(m)
     
 def load() :
-    st.title("Recherche d'entreprises avec Overpass Turbo")
+    st.title("Cat'Map v2")
     st.markdown('<div>', unsafe_allow_html=True)
-    NomEntreprise = "Générer un fichier CSV pour une seule entreprise"
-    FichierCSV = "Générer un fichier CSV depuis un autre fichier du même format"
-    option = st.radio("Choisissez une option :", (NomEntreprise, FichierCSV))
+    NomEntreprise = "Geolocation of company buildings by name"
+    FichierCSV = "Geolocation of company buildings by csv file"
+    option = st.radio("Select the chosen method :", (NomEntreprise, FichierCSV))
     st.write(option)
     
     # Conteneur pour la barre de progression

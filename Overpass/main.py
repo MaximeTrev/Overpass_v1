@@ -82,13 +82,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         if dfOut is not None:
             st.session_state.dfOut = dfOut
         else:
-            st.write("Erreur : dfOut est vide ou non défini")
-
-        st.write(st.session_state)
-        if "dfOut" not in st.session_state:
-            st.write("ok")
-            st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
-        st.write(st.session_state)
+            st.write("Erreur : dfOut is void")
         
         # Interface utilisateur - Sélection des "Name"
         st.write("Select companie(s) to filter for pie chart")

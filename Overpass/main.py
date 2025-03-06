@@ -76,7 +76,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         onglets = st.tabs(Pays)
         effectif = dfOut["pays"].value_counts()
         #TODO : le % est calculé sur la population post filtre et non initiale       
-        st.plotly_chart(pieChart(dfOut["pays"], entreprise, effectif, effectif))
+        """st.plotly_chart(pieChart(dfOut["pays"], entreprise, effectif, effectif))
         i=0
         
         for pays in Pays :
@@ -88,7 +88,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 _effectif = dfFiltrePays["pays"].value_counts()      
                 st.plotly_chart(pieChart(dfFiltrePays["pays"], entreprise, _effectif, effectif))
             i+=1
-            st.write(pays)
+            st.write(pays)"""
 
 
             # Sélection des valeurs de la colonne "name"

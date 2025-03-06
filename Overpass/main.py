@@ -79,112 +79,31 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
-        """
-        # 📌 2️⃣ Sélection des valeurs de la colonne "Name"
-        selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
-        
-        # 📌 3️⃣ Filtrer le DataFrame en fonction de la sélection
-        filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
-        
-        # 📌 4️⃣ Récupérer les données mises en cache
-        if not filtered_df.empty:
-            pays_counts = get_pays_counts(filtered_df)
-        
-            # 📌 5️⃣ Limiter à 10 catégories max
-            if len(pays_counts) > 10:
-                top_pays = pays_counts.iloc[:10]  # Les 10 premiers
-                other_count = pays_counts.iloc[10:]["count"].sum()  # Somme des autres
-        
-                # Ajouter une ligne "Autres" si nécessaire
-                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
-                pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
-        
-            # 📌 6️⃣ Créer et afficher le Pie Chart
-            fig = px.pie(pays_counts, names="pays", values="count", title="Répartition par pays")
-            st.plotly_chart(fig, use_container_width=True)
-        else:
-            st.warning("Aucune donnée disponible pour la sélection actuelle.")
-
-        """
-
-        """
-        #TEST
-         # 📌 1️⃣ Récupérer la liste unique des "Name"
-        unique_names = dfOut["Name"].unique()
-        
-        # 📌 2️⃣ Formulaire avec colonnes pour sélectionner les "Name"
-        with st.form("selection_form"):
-            st.write("### Sélectionnez les lieux à afficher :")
-        
-            # Création des colonnes (on limite à 3 colonnes max pour une bonne disposition)
-            cols = st.columns(min(len(unique_names), 3))
-        
-            # Stocker les choix de l'utilisateur
-            name_selectionnes = {}
-        
-            # Affichage des cases à cocher pour chaque "Name" réparti en colonnes
-            for idx, name in enumerate(unique_names):
-                col_idx = idx % 3  # Répartir sur 3 colonnes
-                name_selectionnes[name] = cols[col_idx].checkbox(name, value=True)
-        
-            # Bouton de soumission
-            submitted = st.form_submit_button("Appliquer le filtre")
-        
-        # 📌 3️⃣ Filtrer le DataFrame en fonction de la sélection
-        selected_names = [n for n, checked in name_selectionnes.items() if checked]
-        filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
-        
-        if submitted and not filtered_df.empty:
-            name_counts = get_name_counts(filtered_df)
-        
-            # 📌 5️⃣ Limiter à 10 catégories max
-            if len(name_counts) > 10:
-                top_names = name_counts.iloc[:10]
-                other_count = name_counts.iloc[10:]["count"].sum()
-                other_row = pd.DataFrame([["Autres", other_count]], columns=["Name", "count"])
-                name_counts = pd.concat([top_names, other_row], ignore_index=True)
-        
-            # 📌 6️⃣ Afficher le Pie Chart
-            fig = px.pie(name_counts, names="Name", values="count", title="Répartition par lieux (Name)")
-            st.plotly_chart(fig, use_container_width=True)
-        else:
-            st.warning("Aucune donnée disponible pour la sélection actuelle.")"""
-
-        """### DEBUT DU TEST 2"""
-        #TEST 2
-        st.write(st.session_state)
         if "dfOut" not in st.session_state:
             st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
-        st.write(st.session_state)  
         
-        # 📌 2️⃣ Interface utilisateur - Sélection des "Name"
-        st.write("### Sélectionnez les lieux (Name) pour filtrer le Pie Chart")
+        # Interface utilisateur - Sélection des "Name"
+        st.write("Select companie(s) to filter for pie chart")
         selected_names = st.multiselect(
-            "Filtrer par Name :", 
+            "Companie(s) :", 
             options=st.session_state.dfOut["Name"].unique(),
             default=st.session_state.dfOut["Name"].unique()  # Tout sélectionné par défaut
         )
         
-        # 📌 3️⃣ Appliquer le filtre sur dfOut
+        # Appliquer le filtre sur dfOut
         filtered_df = st.session_state.dfOut[st.session_state.dfOut["Name"].isin(selected_names)]
-        
-        # 📌 4️⃣ Calculer les valeurs pour le Pie Chart
-        def get_pays_counts(df):
-            pays_counts = df["pays"].value_counts().reset_index()
-            pays_counts.columns = ["pays", "count"]
-            return pays_counts
         
         pays_counts = get_pays_counts(filtered_df)
         
-        # 📌 5️⃣ Limiter à 10 catégories max
+        # Limiter à 10 catégories max
         if len(pays_counts) > 10:
             top_pays = pays_counts.iloc[:10]
             other_count = pays_counts.iloc[10:]["count"].sum()
             other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
             pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
         
-        # 📌 6️⃣ Afficher le Pie Chart
-        fig = px.pie(pays_counts, names="pays", values="count", title="Répartition des pays")
+        # Afficher le Pie Chart
+        fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
         st.plotly_chart(fig, use_container_width=True)
     
         

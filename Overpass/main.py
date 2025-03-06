@@ -108,10 +108,10 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         # Sélection des valeurs uniques pour le filtre
 
         @st.cache_data
-        def load_data():
+        def load_data(dfOut):
             return dfOut
 
-        dfOut = load_data()
+        dfOut = load_data(dfOut)
         st.write(dfOut)
         selected_names = st.multiselect("Sélectionnez des valeurs de 'Name'", dfOut["Name"].unique())
         

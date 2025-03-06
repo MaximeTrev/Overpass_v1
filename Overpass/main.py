@@ -127,8 +127,6 @@ def load() :
     st.image("Overpass/PNG/SquareManagement.png", width = 100)
     st.markdown("<h1 style='text-align: center; color: #bd8e43;'>Cat'Map v2</h1>", unsafe_allow_html=True)
     st.markdown('<div>', unsafe_allow_html=True)
-    st.image("Overpass/PNG/SquareManagement.png")
-
     
     NomEntreprise = "Geolocation of company buildings by name"
     FichierCSV = "Geolocation of company buildings by csv file"

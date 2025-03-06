@@ -106,36 +106,50 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
         st.plotly_chart(fig, use_container_width=True)
 
-        #TEST 2
+        
+
+        #TEST 2: 2x plus rapide
         if "dfOut" not in st.session_state:
             st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
         
         # Sélection des valeurs uniques pour le filtre
  
-        selected_names = st.multiselect("Sélectionnez des valeurs de 'Name'", dfOut["Name"].unique())
+        selected_names = st.multiselect("Select companie(s) to filter for pie chart", dfOut["Name"].unique())
         
         @st.fragment
         def plot_pie_chart(selected_names):
             st.write("In")
             if not selected_names:
-                st.write("Sélectionnez au moins une valeur pour afficher le graphique.")
+                st.write("Select at least one value to display the pie chart.")
                 return
         
             filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
             if filtered_df.empty:
-                st.write("Aucune donnée disponible pour la sélection actuelle.")
+                st.write("No data available")
                 return
         
             # Comptage des occurrences par pays
-            pie_data = filtered_df["pays"].value_counts().reset_index()
-            pie_data.columns = ["pays", "count"]
+            #pie_data = filtered_df["pays"].value_counts().reset_index()
+            #pie_data.columns = ["pays", "count"]
         
             # Limiter à 10 catégories maximum
-            pie_data = pie_data.head(10)
+            #pie_data = pie_data.head(10)
+
+             # Appliquer le filtre sur dfOut
+            filtered_df = st.session_state.dfOut[st.session_state.dfOut["Name"].isin(selected_names)]
+            pays_counts = get_pays_counts(filtered_df)
+
+            # Limiter à 10 catégories max
+            if len(pays_counts) > 10:
+                top_pays = pays_counts.iloc[:10]
+                other_count = pays_counts.iloc[10:]["count"].sum()
+                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
+                pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
         
             # Création du graphique
-            fig = px.pie(pie_data, names="pays", values="count", title="Répartition par pays")
-            
+            #fig = px.pie(pie_data, names="pays", values="count", title="Breakdown of selected companie(s) by country")
+            fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
+
             st.plotly_chart(fig, use_container_width=True)
         
         # Afficher le graphique

@@ -124,7 +124,7 @@ def show_map(df):
     
 def load() :
     #st.title("Cat'Map v2")
-    st.markdown("<h1 style='text-align: center; color: red;'>Cat'Map v2</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #bd8e43;'>Cat'Map v2</h1>", unsafe_allow_html=True)
     st.markdown('<div>', unsafe_allow_html=True)
     NomEntreprise = "Geolocation of company buildings by name"
     FichierCSV = "Geolocation of company buildings by csv file"

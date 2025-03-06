@@ -35,7 +35,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     
     listeFichiers, entreprise = [], ""
     dfOut = pd.DataFrame()
-    #download = "Vous pouvez télécharger le tableau ci-dessous avec un bouton en laissant la souris sur le coin à droite du tableau (dernière colonne)."
+    download = "Vous pouvez télécharger le tableau ci-dessous avec un bouton en laissant la souris sur le coin à droite du tableau (dernière colonne)."
     if option == NomEntreprise:
         entreprise = st.text_input("Nom de l'entreprise")
         progress_container.markdown(

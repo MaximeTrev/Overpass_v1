@@ -105,7 +105,8 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
         st.plotly_chart(fig, use_container_width=True)
 
-        #TEST 3: 2x plus rapide
+        #Les stats sont fausses, refaire pour prendre les 10 premier et avec les bons chiffres
+        #TEST 2: 2x plus rapide
         if "dfOut" not in st.session_state:
             st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
         

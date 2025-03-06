@@ -150,10 +150,12 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         else:
             st.warning("Aucune donnée disponible pour la sélection actuelle.")"""
 
-        
+        """### DEBUT DU TEST 2"""
         #TEST 2
+        st.write(st.session_state)
         if "dfOut" not in st.session_state:
             st.session_state.dfOut = df  # On stocke le DataFrame une seule fois
+        st.write(st.session_state)  
         
         # 📌 2️⃣ Interface utilisateur - Sélection des "Name"
         st.write("### Sélectionnez les lieux (Name) pour filtrer le Pie Chart")

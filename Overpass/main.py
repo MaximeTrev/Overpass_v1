@@ -81,7 +81,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     try:
         if "dfOut" not in st.session_state:
             st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
-        
+        st.write(dfOut)
         # Interface utilisateur - Sélection des "Name"
         st.write("Select companie(s) to filter for pie chart")
         selected_names = st.multiselect(

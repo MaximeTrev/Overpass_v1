@@ -4,6 +4,7 @@ import folium
 from folium import IFrame
 from streamlit_folium import folium_static
 import plotly.graph_objects as go
+import plotly.express as px
 import os
 import CSS as css
 import mergeCountries as mc
@@ -88,6 +89,25 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 st.plotly_chart(pieChart(dfFiltrePays["pays"], entreprise, _effectif, effectif))
             i+=1
             st.write(pays)
+
+
+            # Sélection des valeurs de la colonne "name"
+            selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["name"].unique(), default=dfOut["name"].unique())
+            
+            # Filtrer le DataFrame en fonction de la sélection
+            filtered_df = dfOut[dfOut["name"].isin(selected_names)]
+            
+            # Créer un Pie Chart basé sur la colonne "amenity"
+            if not filtered_df.empty:  # Vérifie qu'il y a des données après filtrage
+                amenity_counts = filtered_df["amenity"].value_counts().reset_index()
+                amenity_counts.columns = ["amenity", "count"]
+            
+                fig = px.pie(amenity_counts, names="amenity", values="count", title="Répartition des services (amenity)")
+            
+                # Afficher le graphique
+                st.plotly_chart(fig, use_container_width=True)
+            else:
+                st.warning("Aucune donnée disponible pour la sélection actuelle.")
     except:
         pass
               

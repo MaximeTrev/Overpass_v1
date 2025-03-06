@@ -128,25 +128,24 @@ def load() :
     st.markdown('<div>', unsafe_allow_html=True)
     #SquareManagement = os.path.join(os.path.dirname(__file__), "SquareManagement.png")
     #st.image(SquareManagement)
-    import streamlit as st
 
-# Appliquer du CSS pour positionner le logo en haut à droite
-st.markdown(
-    """
-    <style>
-    .logo-container {
-        display: flex;
-        justify-content: flex-end;
-    }
-    .logo-container img {
-        width: 100px;  /* Ajuste la taille selon tes besoins */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-# Afficher le logo en haut à droite
-st.markdown('<div class="logo-container"><img src="PNG/SquareManagement.png"></div>', unsafe_allow_html=True)
+    # Appliquer du CSS pour positionner le logo en haut à droite
+    st.markdown(
+        """
+        <style>
+        .logo-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .logo-container img {
+            width: 100px;  /* Ajuste la taille selon tes besoins */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    # Afficher le logo en haut à droite
+    st.markdown('<div class="logo-container"><img src="PNG/SquareManagement.png"></div>', unsafe_allow_html=True)
 
     NomEntreprise = "Geolocation of company buildings by name"
     FichierCSV = "Geolocation of company buildings by csv file"

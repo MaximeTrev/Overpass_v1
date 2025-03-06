@@ -154,7 +154,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         #TEST 2
         st.write(st.session_state)
         if "dfOut" not in st.session_state:
-            st.session_state.dfOut = df  # On stocke le DataFrame une seule fois
+            st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
         st.write(st.session_state)  
         
         # 📌 2️⃣ Interface utilisateur - Sélection des "Name"

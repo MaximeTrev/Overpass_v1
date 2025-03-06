@@ -72,45 +72,6 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
-        Pays = Pays[:5]
-        onglets = st.tabs(Pays)
-        effectif = dfOut["pays"].value_counts()
-        #TODO : le % est calculé sur la population post filtre et non initiale       
-        """st.plotly_chart(pieChart(dfOut["pays"], entreprise, effectif, effectif))
-        i=0
-        
-        for pays in Pays :
-            with onglets[i]:
-                st.header("Graphique PieChart "+pays)
-                dfFiltrePays = pd.DataFrame()
-                ##### graph à supprimer 
-                dfFiltrePays["pays"] = dfOut["pays"].apply(lambda p: p if p == pays else "Autre")
-                _effectif = dfFiltrePays["pays"].value_counts()      
-                st.plotly_chart(pieChart(dfFiltrePays["pays"], entreprise, _effectif, effectif))
-            i+=1
-            st.write(pays)"""
-
-        
-        #Sélection des valeurs de la colonne "name"
-        """
-        selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
-        # Filtrer le DataFrame en fonction de la sélection
-        filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
-        
-        # Créer un Pie Chart basé sur la colonne "amenity"
-        if not filtered_df.empty:  # Vérifie qu'il y a des données après filtrage
-            country_counts = filtered_df["pays"].value_counts().reset_index()
-            country_counts.columns = ["pays", "count"]
-        
-            fig = px.pie(country_counts, names="pays", values="count", title="Breakdown by country")
-        
-            # Afficher le graphique
-            st.plotly_chart(fig, use_container_width=True)
-        else:
-            st.warning("Aucune donnée disponible pour la sélection actuelle.")"""
-
-
-
         # Sélection des valeurs de la colonne "name"
         selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
         
@@ -128,7 +89,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 other_count = amenity_counts.iloc[10:]["count"].sum()  # Somme des autres
         
                 # Ajouter une ligne "Autres" si nécessaire
-                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
+                other_row = pd.DataFrame([["Other", other_count]], columns=["pays", "count"])
                 country_counts = pd.concat([top_country, other_row], ignore_index=True)
         
             # Création du Pie Chart

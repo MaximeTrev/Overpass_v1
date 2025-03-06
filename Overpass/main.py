@@ -30,6 +30,13 @@ def pieChart(pays,entreprise, _effectif, effectif) :
     )
     return fig
 
+# Fonction pour compter les occurrences (mise en cache pour optimiser)
+@st.cache_data
+def get_pays_counts(df):
+    pays_counts = df["pays"].value_counts().reset_index()
+    pays_counts.columns = ["pays", "count"]
+    return pays_counts
+
     
 def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     listeFichiers, entreprise = [], ""
@@ -72,33 +79,32 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
-        # Sélection des valeurs de la colonne "name"
+
+        # 📌 2️⃣ Sélection des valeurs de la colonne "Name"
         selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
         
-        # Filtrer le DataFrame en fonction de la sélection
+        # 📌 3️⃣ Filtrer le DataFrame en fonction de la sélection
         filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
         
-        # Compter les occurrences de chaque "amenity"
+        # 📌 4️⃣ Récupérer les données mises en cache
         if not filtered_df.empty:
-            amenity_counts = filtered_df["pays"].value_counts().reset_index()
-            amenity_counts.columns = ["pays", "count"]
+            pays_counts = get_pays_counts(filtered_df)
         
-            # Limiter à 10 catégories max
-            if len(amenity_counts) > 10:
-                top_country = amenity_counts.iloc[:10]  # Les 10 premiers
-                other_count = amenity_counts.iloc[10:]["count"].sum()  # Somme des autres
+            # 📌 5️⃣ Limiter à 10 catégories max
+            if len(pays_counts) > 10:
+                top_pays = pays_counts.iloc[:10]  # Les 10 premiers
+                other_count = pays_counts.iloc[10:]["count"].sum()  # Somme des autres
         
                 # Ajouter une ligne "Autres" si nécessaire
-                other_row = pd.DataFrame([["Other", other_count]], columns=["pays", "count"])
-                country_counts = pd.concat([top_country, other_row], ignore_index=True)
+                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
+                pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
         
-            # Création du Pie Chart
-            fig = px.pie(country_counts, names="pays", values="count", title="Breakdown by country")
-        
-            # Afficher le graphique
+            # 📌 6️⃣ Créer et afficher le Pie Chart
+            fig = px.pie(pays_counts, names="pays", values="count", title="Répartition par pays")
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning("Aucune donnée disponible pour la sélection actuelle.")
+        
     except:
         pass
               

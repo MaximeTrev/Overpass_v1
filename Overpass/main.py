@@ -60,7 +60,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                
     elif option == FichierCSV:
         entreprise = "résultats entreprises"
-        uploaded_file = st.file_uploader("Sélectionner un fichier CSV", type=["csv"])   
+        uploaded_file = st.file_uploader("Select CSV file", type=["csv"])   
         progress_container.markdown(
             '<span class="progress-bar-container">Loading ...<div class="progress-bar" id="progress"></div></span>',
             unsafe_allow_html=True

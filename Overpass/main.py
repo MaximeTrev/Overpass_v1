@@ -79,7 +79,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
-
+        """
         # 📌 2️⃣ Sélection des valeurs de la colonne "Name"
         selected_names = st.multiselect("Sélectionnez des lieux :", dfOut["Name"].unique(), default=dfOut["Name"].unique())
         
@@ -105,7 +105,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         else:
             st.warning("Aucune donnée disponible pour la sélection actuelle.")
 
-        """
+        
         #TEST
          # 📌 1️⃣ Récupérer la liste unique des "Name"
         unique_names = dfOut["Name"].unique()

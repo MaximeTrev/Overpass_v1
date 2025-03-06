@@ -79,6 +79,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
+        st.write(st.session_state)
         if "dfOut" not in st.session_state:
             st.write("ok")
             st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois

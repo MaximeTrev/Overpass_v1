@@ -35,9 +35,9 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     
     listeFichiers, entreprise = [], ""
     dfOut = pd.DataFrame()
-    download = "Vous pouvez télécharger le tableau ci-dessous avec un bouton en laissant la souris sur le coin à droite du tableau (dernière colonne)."
+    download = "Preview of results (download available)"
     if option == NomEntreprise:
-        entreprise = st.text_input("Nom de l'entreprise")
+        entreprise = st.text_input("Company name")
         progress_container.markdown(
             '<span class="progress-bar-container">Chargement des données<div class="progress-bar" id="progress"></div></span>',
             unsafe_allow_html=True
@@ -47,7 +47,6 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             dfOut = _csv.fromJSONtoDataFrame(listeFichiers)
             dfOut, Pays = mc.findCountry(dfOut)
             st.write(download)
-            """dataframe: CSV out"""
             st.dataframe(dfOut)
             show_map(dfOut)
             

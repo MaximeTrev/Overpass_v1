@@ -107,7 +107,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         st.plotly_chart(fig, use_container_width=True)
 
         #TEST 2
-        """if "dfOut" not in st.session_state:
+        if "dfOut" not in st.session_state:
             st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
         
         # Sélection des valeurs uniques pour le filtre
@@ -139,7 +139,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.plotly_chart(fig, use_container_width=True)
         
         # Afficher le graphique
-        plot_pie_chart(selected_names)"""
+        plot_pie_chart(selected_names)
         
     except:
         pass

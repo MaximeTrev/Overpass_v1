@@ -16,7 +16,9 @@ Essaye de mettre « pays » en variable maintenant dans un bouton
 import mergeCountries as mc
 import operationsCSV as _csv
 
-with open("styles.css") as f:
+#with open("styles.css") as f:
+css_path = os.path.join(os.path.dirname(__file__), "styles.css")
+with open(css_path) as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     
 def pieChart(pays,entreprise, _effectif, effectif) :

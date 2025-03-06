@@ -104,10 +104,55 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.warning("Aucune donnée disponible pour la sélection actuelle.")
+
+
+        #TEST
+         # 📌 1️⃣ Récupérer la liste unique des pays
+        unique_pays = dfOut["pays"].unique()
+        
+        # 📌 2️⃣ Formulaire avec colonnes
+        with st.form("selection_form"):
+            st.write("### Sélectionnez les pays à afficher :")
+        
+            # Création des colonnes (on limite à 3 colonnes max pour une bonne lisibilité)
+            cols = st.columns(min(len(unique_pays), 3))
+        
+            # Stocker les choix de l'utilisateur
+            pays_selectionnes = {}
+        
+            # Affichage des cases à cocher pour chaque pays dans les colonnes
+            for idx, pays in enumerate(unique_pays):
+                col_idx = idx % 3  # Répartir sur 3 colonnes
+                pays_selectionnes[pays] = cols[col_idx].checkbox(pays, value=True)
+        
+            # Bouton de soumission
+            submitted = st.form_submit_button("Appliquer le filtre")
+        
+        # 📌 3️⃣ Filtrer le DataFrame en fonction de la sélection
+        selected_pays = [p for p, checked in pays_selectionnes.items() if checked]
+        filtered_df = dfOut[dfOut["pays"].isin(selected_pays)]
+        
+        if submitted and not filtered_df.empty:
+            pays_counts = get_pays_counts(filtered_df)
+        
+            # 📌 5️⃣ Limiter à 10 catégories max
+            if len(pays_counts) > 10:
+                top_pays = pays_counts.iloc[:10]
+                other_count = pays_counts.iloc[10:]["count"].sum()
+                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
+                pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
+        
+            # 📌 6️⃣ Afficher le Pie Chart
+            fig = px.pie(pays_counts, names="pays", values="count", title="Répartition par pays")
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("Aucune donnée disponible pour la sélection actuelle.")
+
+    
         
     except:
         pass
-              
+    
     for JSON in listeFichiers :
         os.remove("json/"+JSON)
 

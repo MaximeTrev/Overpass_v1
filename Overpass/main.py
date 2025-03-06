@@ -124,33 +124,11 @@ def show_map(df):
     
 def load() :
     #st.title("Cat'Map v2")
+    st.image("Overpass/PNG/SquareManagement.png", width = 10px)
     st.markdown("<h1 style='text-align: center; color: #bd8e43;'>Cat'Map v2</h1>", unsafe_allow_html=True)
     st.markdown('<div>', unsafe_allow_html=True)
-    #st.image("Overpass/PNG/SquareManagement.png")
+    st.image("Overpass/PNG/SquareManagement.png")
 
-    # Appliquer du CSS pour positionner le logo en haut à droite
-    st.markdown(
-        """
-        <style>
-        .logo-container {
-            display: flex;
-            justify-content: flex-end;
-        }
-        .logo-container img {
-            width: 100px;  /* Ajuste la taille selon tes besoins */
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    # Afficher le logo en haut à droite
-    #st.markdown('<div class="logo-container"><img src="Overpass/PNG/SquareManagement.png"></div>', unsafe_allow_html=True)
-    # Lire l’image et l'afficher en haut à droite
-    with open(image_path, "rb") as img_file:
-        st.markdown(
-            f'<div class="logo-container"><img src="data:image/png;base64,{img_file.read().hex()}"></div>',
-            unsafe_allow_html=True,
-        )
     
     NomEntreprise = "Geolocation of company buildings by name"
     FichierCSV = "Geolocation of company buildings by csv file"

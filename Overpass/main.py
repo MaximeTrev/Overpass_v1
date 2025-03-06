@@ -79,7 +79,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.dataframe(dfOut)
             show_map(dfOut) 
     try:
-        if "dfOut" not in st.session_state:
+        """if "dfOut" not in st.session_state:
             st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
         
         # Interface utilisateur - Sélection des "Name"
@@ -102,7 +102,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             
         # Afficher le Pie Chart
         fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)"""
 
         """TEST 2"""
         # Sélection des valeurs uniques pour le filtre

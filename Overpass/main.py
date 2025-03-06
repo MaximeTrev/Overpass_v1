@@ -105,7 +105,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         else:
             st.warning("Aucune donnée disponible pour la sélection actuelle.")
 
-        
+        """
         #TEST
          # 📌 1️⃣ Récupérer la liste unique des "Name"
         unique_names = dfOut["Name"].unique()
@@ -146,9 +146,9 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             fig = px.pie(name_counts, names="Name", values="count", title="Répartition par lieux (Name)")
             st.plotly_chart(fig, use_container_width=True)
         else:
-            st.warning("Aucune donnée disponible pour la sélection actuelle.")
+            st.warning("Aucune donnée disponible pour la sélection actuelle.")"""
 
-        """
+        
         #TEST 2
         if "dfOut" not in st.session_state:
             st.session_state.dfOut = df  # On stocke le DataFrame une seule fois
@@ -181,7 +181,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         
         # 📌 6️⃣ Afficher le Pie Chart
         fig = px.pie(pays_counts, names="pays", values="count", title="Répartition des pays")
-        st.plotly_chart(fig, use_container_width=True)"""
+        st.plotly_chart(fig, use_container_width=True)
     
         
     except:

@@ -106,7 +106,10 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             # Afficher le Pie Chart
             # Création des colonnes pour la mise en page
             fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
-            fig.update_layout(legend=dict(font=dict(size=8)))
+            fig.update_layout(
+                legend=dict(font=dict(size=8)),
+                margin=dict(l=50, r=50, t=50, b=50)
+            )
             st.plotly_chart(fig, use_container_width=True)
         
     except:

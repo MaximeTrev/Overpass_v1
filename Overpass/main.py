@@ -86,12 +86,13 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         
         with col_fig1:
             # Interface utilisateur - Sélection des "Name"
-            st.write("Select companie(s)")
-            selected_names = st.multiselect(
-                "Companie(s):", 
-                options=st.session_state.dfOut["Name"].unique(),
-                default=st.session_state.dfOut["Name"].unique()  # Tout sélectionné par défaut
-            )
+            #st.write("Select companie(s)")
+            with st.expander("Select companie(s)", expanded=False):
+                selected_names = st.multiselect(
+                    "Companie(s):", 
+                    options=st.session_state.dfOut["Name"].unique(),
+                    default=st.session_state.dfOut["Name"].unique()  # Tout sélectionné par défaut
+                )
             # Appliquer le filtre sur dfOut
             filtered_df = st.session_state.dfOut[st.session_state.dfOut["Name"].isin(selected_names)]
             pays_counts = get_pays_counts(filtered_df)
@@ -117,7 +118,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         with col_fig2:
             # Interface utilisateur - Sélection des "Name"
             #st.write("Select type(s) of businness")
-            with st.expander("SSelect type(s) of businness:", expanded=False):
+            with st.expander("Select type(s) of businness:", expanded=False):
                 selected_business = st.multiselect(
                     "type(s) of businness:", 
                     options=st.session_state.dfOut["Amenity"].unique(),

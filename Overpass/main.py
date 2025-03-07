@@ -86,9 +86,9 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         
         with col_fig1:
             # Interface utilisateur - Sélection des "Name"
-            st.write("Select companie(s) to filter for pie chart")
+            st.write("Select companie(s)")
             selected_names = st.multiselect(
-                "Companie(s) :", 
+                "Companie(s):", 
                 options=st.session_state.dfOut["Name"].unique(),
                 default=st.session_state.dfOut["Name"].unique()  # Tout sélectionné par défaut
             )
@@ -111,6 +111,36 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 margin=dict(l=5, r=50)
             )
             fig.update_traces(texttemplate="%{percent:.0%}")
+            st.plotly_chart(fig, use_container_width=True)
+
+
+        with col_fig2:
+            # Interface utilisateur - Sélection des "Name"
+            st.write("Select type(s) of businness")
+            selected_business = st.multiselect(
+                "type(s) of businness:", 
+                options=st.session_state.dfOut["Amenity"].unique(),
+                default=st.session_state.dfOut["Amenity"].unique()  # Tout sélectionné par défaut
+            )
+            # Appliquer le filtre sur dfOut
+            filtered_df = st.session_state.dfOut[st.session_state.dfOut["Amenity"].isin(selected_business)]
+            pays_counts = get_pays_counts(filtered_df)
+        
+            # Limiter à 10 catégories max
+            if len(pays_counts) > 10:
+                top_pays = pays_counts.iloc[:10]
+                other_count = pays_counts.iloc[10:]["count"].sum()
+                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
+                pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
+                
+            # Afficher le Pie Chart
+            # Création des colonnes pour la mise en page
+            fig2 = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected type(s) of business by country")
+            fig2.update_layout(
+                legend=dict(font=dict(size=8)),
+                margin=dict(l=5, r=50)
+            )
+            fig2.update_traces(texttemplate="%{percent:.0%}")
             st.plotly_chart(fig, use_container_width=True)
         
     except:

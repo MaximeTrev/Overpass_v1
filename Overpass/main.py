@@ -107,17 +107,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             # Création des colonnes pour la mise en page
             fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
             fig.update_layout(
-            legend=dict(
-                orientation="v",  # Légende horizontale
-                yanchor="bottom",  # Ancrée en bas
-                y=1.15,  # Légende au-dessus du graphique
-                xanchor="right",  # Alignée à droite
-                x=1.0,  # Position à droite
-                traceorder="normal",  # Ordre des éléments
-                font=dict(size=7),  # Taille du texte plus petite
-            ),
-            legend_itemwidth=60,  # Ajuste la largeur des éléments
-            )
+            legend=dict(font=dict(size=8))
             st.plotly_chart(fig, use_container_width=True)
         
     except:

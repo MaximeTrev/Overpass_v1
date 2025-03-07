@@ -75,8 +75,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             st.write(download)
             st.write(f"Results: {dfOut.shape[0]}")
             entreprises.pop()
-            #st.dataframe(dfOut)
-            st.dataframe(dfOut.head(5))
+            st.dataframe(dfOut)
             show_map(dfOut) 
     try:
         if dfOut is not None:

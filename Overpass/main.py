@@ -179,12 +179,12 @@ def show_map(df):
     
 def load() :
     # Création de la disposition en trois colonnes
-    col1, col2, col3 = st.columns([1, 3, 1])  # Colonnes de tailles différentes
+    col1, col2, col3 = st.columns([1, 4, 1])  # Colonnes de tailles différentes
     #with col1:
         #st.image("Overpass/PNG/Logo_CatMapV2.png", width=70)  # Logo à gauche
     with col2:
         #st.markdown("<h1 style='text-align: center; color: #bd8e43;'>Cat'Map v2</h1>", unsafe_allow_html=True)  # Titre centré
-        st.image("Overpass/PNG/TopBanner.png", width=1000)
+        st.image("Overpass/PNG/TopBanner.png", width=1500)
     #with col3:
         #st.image("Overpass/PNG/SquareManagement.png", width=200)  # Logo à droite
     

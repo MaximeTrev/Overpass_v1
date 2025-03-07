@@ -125,19 +125,19 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                     default=st.session_state.dfOut["Amenity"].unique()  # Tout sélectionné par défaut
                 )
             # Appliquer le filtre sur dfOut
-            filtered_df = st.session_state.dfOut[st.session_state.dfOut["Amenity"].isin(selected_business)]
-            pays_counts = get_pays_counts(filtered_df)
+            filtered_df2 = st.session_state.dfOut[st.session_state.dfOut["Amenity"].isin(selected_business)]
+            pays_counts2 = get_pays_counts(filtered_df2)
         
             # Limiter à 10 catégories max
-            if len(pays_counts) > 10:
-                top_pays = pays_counts.iloc[:10]
-                other_count = pays_counts.iloc[10:]["count"].sum()
-                other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
-                pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
+            if len(pays_counts2) > 10:
+                top_pays2 = pays_counts2.iloc[:10]
+                other_count2 = pays_counts2.iloc[10:]["count"].sum()
+                other_row2 = pd.DataFrame([["Autres", other_count2]], columns=["pays", "count"])
+                pays_counts2 = pd.concat([top_pays2, other_row2], ignore_index=True)
                 
             # Afficher le Pie Chart
             # Création des colonnes pour la mise en page
-            fig2 = px.pie(pays_counts, names="pays", values="count")
+            fig2 = px.pie(pays_counts2, names="pays", values="count")
             fig2.update_layout(
                 legend=dict(font=dict(size=8)),
                 margin=dict(l=5, r=50))

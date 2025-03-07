@@ -179,7 +179,7 @@ def show_map(df):
     
 def load() :
     #st.title("Cat'Map v2")
-    #st.image("Overpass/PNG/SquareManagement.png", width = 100)
+    #st.image("Overpass/PNG/SquareManagement.png", width = 50)
     #st.image("Overpass/PNG/Logo_CatMapV2.png", width = 100)
     #st.markdown("<h1 style='text-align: center; color: #bd8e43;'>Cat'Map v2</h1>", unsafe_allow_html=True)
     #st.markdown('<div>', unsafe_allow_html=True)

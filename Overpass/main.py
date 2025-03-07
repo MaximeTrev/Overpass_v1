@@ -104,7 +104,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         # Afficher le Pie Chart
         # Création des colonnes pour la mise en page
         col_fig1, col_fig2 = st.columns(2)
-        with col1:
+        with col_fig1:
             fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
             st.plotly_chart(fig, use_container_width=True)
         

@@ -93,7 +93,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         # Appliquer le filtre sur dfOut
         filtered_df = st.session_state.dfOut[st.session_state.dfOut["Name"].isin(selected_names)]
         pays_counts = get_pays_counts(filtered_df)
-        
+    
         # Limiter à 10 catégories max
         if len(pays_counts) > 10:
             top_pays = pays_counts.iloc[:10]
@@ -102,44 +102,11 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             pays_counts = pd.concat([top_pays, other_row], ignore_index=True)
             
         # Afficher le Pie Chart
-        fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
-        st.plotly_chart(fig, use_container_width=True)
-
-        #Les stats sont fausses, refaire pour prendre les 10 premier et avec les bons chiffres
-        #TEST 2: 2x plus rapide
-        if "dfOut" not in st.session_state:
-            st.session_state.dfOut = dfOut  # On stocke le DataFrame une seule fois
-        
-        # Sélection des valeurs uniques pour le filtre
- 
-        selected_names = st.multiselect("Select companie(s) to filter for pie chart", dfOut["Name"].unique())
-        
-        @st.fragment
-        def plot_pie_chart(selected_names):
-            if not selected_names:
-                st.write("Select at least one value to display the pie chart.")
-                return
-        
-            filtered_df = dfOut[dfOut["Name"].isin(selected_names)]
-            if filtered_df.empty:
-                st.write("No data available")
-                return
-        
-            # Comptage des occurrences par pays
-            pie_data = filtered_df["pays"].value_counts().reset_index()
-            pie_data.columns = ["pays", "count"]
-        
-            # Limiter à 10 catégories maximum
-            pie_data = pie_data.head(10)
-        
-            # Création du graphique
-            #fig = px.pie(pie_data, names="pays", values="count", title="Breakdown of selected companie(s) by country")
+        # Création des colonnes pour la mise en page
+        col_fig1, col_fig2 = st.columns(2)
+        with col1:
             fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
-
             st.plotly_chart(fig, use_container_width=True)
-        
-        # Afficher le graphique
-        plot_pie_chart(selected_names)
         
     except:
         pass
@@ -180,13 +147,8 @@ def show_map(df):
 def load() :
     # Création de la disposition en trois colonnes
     col1, col2, col3 = st.columns([1, 4, 1])  # Colonnes de tailles différentes
-    #with col1:
-        #st.image("Overpass/PNG/Logo_CatMapV2.png", width=70)  # Logo à gauche
     with col2:
-        #st.markdown("<h1 style='text-align: center; color: #bd8e43;'>Cat'Map v2</h1>", unsafe_allow_html=True)  # Titre centré
         st.image("Overpass/PNG/TopBanner.png", width=1500)
-    #with col3:
-        #st.image("Overpass/PNG/SquareManagement.png", width=200)  # Logo à droite
     
     NomEntreprise = "Geolocation of company buildings by name"
     FichierCSV = "Geolocation of company buildings by csv file"

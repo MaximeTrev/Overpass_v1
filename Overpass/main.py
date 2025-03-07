@@ -141,7 +141,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 margin=dict(l=5, r=50)
             )
             fig2.update_traces(texttemplate="%{percent:.0%}")
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig2, use_container_width=True)
         
     except:
         pass

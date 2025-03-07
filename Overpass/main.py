@@ -108,13 +108,13 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
             fig.update_layout(
             legend=dict(
-                orientation="h",  # Légende horizontale
+                orientation="v",  # Légende horizontale
                 yanchor="bottom",  # Ancrée en bas
-                y=-0.3,  # Ajuster la position verticale
-                xanchor="center",  # Centrer la légende
-                x=0.5,  # Alignement central
+                y=1.15,  # Légende au-dessus du graphique
+                xanchor="right",  # Alignée à droite
+                x=1.0,  # Position à droite
                 traceorder="normal",  # Ordre des éléments
-                font=dict(size=10),  # Taille du texte plus petite
+                font=dict(size=7),  # Taille du texte plus petite
             ),
             legend_itemwidth=60,  # Ajuste la largeur des éléments
             )

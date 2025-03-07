@@ -106,7 +106,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 
             # Afficher le Pie Chart
             # Création des colonnes pour la mise en page
-            fig = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected companie(s) by country")
+            fig = px.pie(pays_counts, names="pays", values="count")
             fig.update_layout(
                 legend=dict(font=dict(size=8)),
                 margin=dict(l=5, r=50)
@@ -137,7 +137,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 
             # Afficher le Pie Chart
             # Création des colonnes pour la mise en page
-            fig2 = px.pie(pays_counts, names="pays", values="count", title="Breakdown of selected type(s) of business by country")
+            fig2 = px.pie(pays_counts, names="pays", values="count")
             fig2.update_layout(
                 legend=dict(font=dict(size=8)),
                 margin=dict(l=5, r=50))

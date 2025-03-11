@@ -3,7 +3,6 @@ import pandas as pd
 import json
 import time
 import unidecode as u
-
 import os
 
 from requetes import Requetes as R
@@ -77,7 +76,7 @@ def fromJSONtoDataFrame(Fichiers) : #Fichiers une liste de fichiers (JSON)
         data = {"Source": Source, "Name": Name, "Amenity": Amenity, "Place": Place, "Shop": Shop, "Power": Power, "Highway": Highway, "Lat": Lat, "Long": Lon, "Flag": Flag}
         df = pd.DataFrame(data)
    
-        print("\n",booleen, ": fichier enregistré.")
+        print("\n",booleen, ": File saved.")
         return df
     else:
         print("\n",booleen, ": aucun fichier JSON trouvé.")
@@ -275,7 +274,8 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 
                 # --------------
                 
-                req = 'node [name='+'"'+var+'"];out;'
+                #req = 'node [name='+'"'+var+'"];out;'
+                req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
                 compteurRequetes += 1
                 requete = R.safe_query(req)
                 res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)

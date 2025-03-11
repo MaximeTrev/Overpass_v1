@@ -1,13 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Feb 14 18:37:16 2025
-
-@author: jerome.hertzog_squar
-"""
-
-"""Ceci est un fichier conenant des fonctions pour faire
-des feuilles de style avec CSS.
-"""
 
 ###################################################### CSS #################
 def __CssClassPopup():

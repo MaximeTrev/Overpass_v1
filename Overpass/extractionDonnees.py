@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 15 11:53:18 2025
 
-@author: jerome.hertzog_squar
-"""
-  
 import overpy
 import streamlit as st
     

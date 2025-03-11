@@ -12,7 +12,7 @@ class Requetes :
             except overpy.exception.OverpassGatewayTimeout:
                 print("Timeout... Retry")
             except overpy.exception.OverpassUnknownContentType:
-                print("Bad response... Retry
+                print("Bad response... Retry")
             time.sleep(wait)
         raise Exception("No responses from Overpass API")
     

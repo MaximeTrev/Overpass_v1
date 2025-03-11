@@ -1,17 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jan 14 15:47:34 2025
-
-@author: jerome.hertzog_squar
-"""
-
 import overpy, time
 from extractionDonnees import loadDatas
-
-
-
-
-
 
 class Requetes :
     # --- VARIABLE API --- #

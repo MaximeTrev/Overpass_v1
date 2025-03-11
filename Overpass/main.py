@@ -154,8 +154,8 @@ def show_map(df):
     m = folium.Map(location=[48.8566, 2.3522], zoom_start=5)
     occ = 0
     for _, row in df.iterrows():
-        if occ >500 :
-            break
+        #if occ >500 :
+            #break
         _popup=row["Lat"]+" "+row["Long"]+"\n"
         _popup +="Name:"+row["Name"]+"\n"
         _popup += "Amenity:"+row["Amenity"]

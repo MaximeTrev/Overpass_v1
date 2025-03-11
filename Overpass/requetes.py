@@ -10,11 +10,11 @@ class Requetes :
             try:
                 return api.query(query)
             except overpy.exception.OverpassGatewayTimeout:
-                print("Timeout, on réessaie...")
+                print("Timeout... Retry")
             except overpy.exception.OverpassUnknownContentType:
-                print("Mauvaise réponse, on réessaie...")
+                print("Bad response... Retry
             time.sleep(wait)
-        raise Exception("Overpass API ne répond pas après plusieurs tentatives")
+        raise Exception("No responses from Overpass API")
     
     def requestToDict(requete, flag, nomInitial, dictDatas = {}, i=1):
         """

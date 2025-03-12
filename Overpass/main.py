@@ -66,30 +66,7 @@ def show_map(df):
         ).add_to(m)
         occ+=1
     folium_static(m)
-    
-def load() :
-    # Création de la disposition en trois colonnes
-    col1, col2, col3 = st.columns([1, 4, 1])  # Colonnes de tailles différentes
-    with col2:
-        st.image("Overpass/PNG/TopBanner.png", width=1500)
-    
-    NomEntreprise = "Geolocation of company buildings by name"
-    FichierCSV = "Geolocation of company buildings by csv file"
-    option = st.radio("Select the chosen method :", (NomEntreprise, FichierCSV))
-    st.write(option)
-    
-    # Conteneur pour la barre de progression
-    barre_de_chargement = st.empty()
-    
-    # Exécuter la classe Test
-    #T = Test(barre_de_chargement, option, NomEntreprise, FichierCSV)
-    
-    __main__(barre_de_chargement, option, NomEntreprise, FichierCSV)
-    
-    # Fin du bloc HTML
-    st.markdown('</div>', unsafe_allow_html=True)
-load()
-    
+
 def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     listeFichiers, entreprise = [], ""
     dfOut = pd.DataFrame()
@@ -202,3 +179,26 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     
     for JSON in listeFichiers :
         os.remove("json/"+JSON)
+    
+def load() :
+    # Création de la disposition en trois colonnes
+    col1, col2, col3 = st.columns([1, 4, 1])  # Colonnes de tailles différentes
+    with col2:
+        st.image("Overpass/PNG/TopBanner.png", width=1500)
+    
+    NomEntreprise = "Geolocation of company buildings by name"
+    FichierCSV = "Geolocation of company buildings by csv file"
+    option = st.radio("Select the chosen method :", (NomEntreprise, FichierCSV))
+    st.write(option)
+    
+    # Conteneur pour la barre de progression
+    barre_de_chargement = st.empty()
+    
+    # Exécuter la classe Test
+    #T = Test(barre_de_chargement, option, NomEntreprise, FichierCSV)
+    
+    __main__(barre_de_chargement, option, NomEntreprise, FichierCSV)
+    
+    # Fin du bloc HTML
+    st.markdown('</div>', unsafe_allow_html=True)
+load()

@@ -36,6 +36,59 @@ def get_pays_counts(df):
     pays_counts = df["pays"].value_counts().reset_index()
     pays_counts.columns = ["pays", "count"]
     return pays_counts
+
+def show_map(df):
+    m = folium.Map(location=[48.8566, 2.3522], zoom_start=5)
+    occ = 0
+    for _, row in df.iterrows():
+        #if occ >500 :
+            #break
+        _popup=row["Lat"]+" "+row["Long"]+"\n"
+        _popup +="Name:"+row["Name"]+"\n"
+        _popup += "Amenity:"+row["Amenity"]
+        cssClassPopup = css.__CssClassPopup()
+        _popup = f"""
+        <div style="{cssClassPopup}">
+            {_popup}
+        </div>"""
+            
+        iframe = IFrame(_popup, width=105, height=80)  # Ajuster la taille ici
+        popup = folium.Popup(iframe, max_width=250)  # Ajuster la largeur max du popup
+        folium.CircleMarker(
+            location=[float(row["Lat"]), float(row["Long"])],
+            radius=6,
+            weight=0,
+            color="blue",
+            fill=True,
+            fill_color="blue",
+            fill_opacity=0.6,
+            popup=popup
+        ).add_to(m)
+        occ+=1
+    folium_static(m)
+    
+def load() :
+    # Création de la disposition en trois colonnes
+    col1, col2, col3 = st.columns([1, 4, 1])  # Colonnes de tailles différentes
+    with col2:
+        st.image("Overpass/PNG/TopBanner.png", width=1500)
+    
+    NomEntreprise = "Geolocation of company buildings by name"
+    FichierCSV = "Geolocation of company buildings by csv file"
+    option = st.radio("Select the chosen method :", (NomEntreprise, FichierCSV))
+    st.write(option)
+    
+    # Conteneur pour la barre de progression
+    barre_de_chargement = st.empty()
+    
+    # Exécuter la classe Test
+    #T = Test(barre_de_chargement, option, NomEntreprise, FichierCSV)
+    
+    __main__(barre_de_chargement, option, NomEntreprise, FichierCSV)
+    
+    # Fin du bloc HTML
+    st.markdown('</div>', unsafe_allow_html=True)
+load()
     
 def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     listeFichiers, entreprise = [], ""
@@ -149,56 +202,3 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     
     for JSON in listeFichiers :
         os.remove("json/"+JSON)
-
-def show_map(df):
-    m = folium.Map(location=[48.8566, 2.3522], zoom_start=5)
-    occ = 0
-    for _, row in df.iterrows():
-        #if occ >500 :
-            #break
-        _popup=row["Lat"]+" "+row["Long"]+"\n"
-        _popup +="Name:"+row["Name"]+"\n"
-        _popup += "Amenity:"+row["Amenity"]
-        cssClassPopup = css.__CssClassPopup()
-        _popup = f"""
-        <div style="{cssClassPopup}">
-            {_popup}
-        </div>"""
-            
-        iframe = IFrame(_popup, width=105, height=80)  # Ajuster la taille ici
-        popup = folium.Popup(iframe, max_width=250)  # Ajuster la largeur max du popup
-        folium.CircleMarker(
-            location=[float(row["Lat"]), float(row["Long"])],
-            radius=6,
-            weight=0,
-            color="blue",
-            fill=True,
-            fill_color="blue",
-            fill_opacity=0.6,
-            popup=popup
-        ).add_to(m)
-        occ+=1
-    folium_static(m)
-    
-def load() :
-    # Création de la disposition en trois colonnes
-    col1, col2, col3 = st.columns([1, 4, 1])  # Colonnes de tailles différentes
-    with col2:
-        st.image("Overpass/PNG/TopBanner.png", width=1500)
-    
-    NomEntreprise = "Geolocation of company buildings by name"
-    FichierCSV = "Geolocation of company buildings by csv file"
-    option = st.radio("Select the chosen method :", (NomEntreprise, FichierCSV))
-    st.write(option)
-    
-    # Conteneur pour la barre de progression
-    barre_de_chargement = st.empty()
-    
-    # Exécuter la classe Test
-    #T = Test(barre_de_chargement, option, NomEntreprise, FichierCSV)
-    
-    __main__(barre_de_chargement, option, NomEntreprise, FichierCSV)
-    
-    # Fin du bloc HTML
-    st.markdown('</div>', unsafe_allow_html=True)
-load()

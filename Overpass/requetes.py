@@ -152,6 +152,6 @@ class Requetes :
             dictDatas["iteration " + str(i)] = dictOcc
                     
             i+=1
-            buildings = len(requete.nodes) + len(requete.ways) + len(requete.relations)
+        buildings = len(requete.nodes) + len(requete.ways) + len(requete.relations)
         return dictDatas, i, buildings
 

@@ -7,6 +7,8 @@ import os
 
 from requetes import Requetes as R
 
+
+
 def __suppr__(chain, Liste) : #sous-fonction
     ch = chain.upper()
     occ, i = Liste[0], 1
@@ -273,62 +275,68 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
 
         IndNomInitial = varName.index((fName, 0))
         (nomInitial, _) = varName[IndNomInitial]
- 
-        time.sleep(1)
-        res = {}
+
         max_length=len(varName)+len(varName_)
         j=0
-        with open("json/"+fName+".json", "w", encoding="utf-8") as f1:
-            for (var, flag) in varName :
-                j+=1         
-                #req = 'node [name='+'"'+var+'"];out;'
-                #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
-                req = f"""[out:json];(node[name='{var}'];way[name='{var}'];relation[name='{var}'];);out center;"""
-                compteurRequetes += 1
-                requete = R.safe_query(req)
-                print(requete.nodes)
-                print("-----------")
-                print(requete.ways)
-                res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)
-                compteurBatiments += batiments
+        for (var, flag) in varName :
+            j+=1         
+            #pas sur, a virer ?
+            osm_data = get_overpass_data(var)
+            if j <= 1:
+                if osm_data:
+                    df = process_osm_data(osm_data)
+                    df["flag"] = flag   
+                else:
+                    print("No data")
+            if j > 1:
+                if osm_data:
+                    df_trans = process_osm_data(osm_data)
+                    df_trans["flag"] = flag   
+                    df = pd.concat([df, df_trans], ignore_index=True)
+                else:
+                    print("No data")
                 
-                progress=j/max_length*100
-                progress=round(progress)
-                progress_container.markdown(
-                    f"""<div class="progress-bar" style="width: {progress}%;">
-                    {progress}%
-                </div>""",
-                    unsafe_allow_html=True
-                )
-                
-            time.sleep(1)    
-            for (var, flag) in varName_ :
-                j+=1
-                
-                # --------------
-                
-                #req ='node [name='+'"'+var+'"];out;'
-                #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
-                req = f"""[out:json];(node[name='{var}'];way[name='{var}'];relation[name='{var}'];);out center;"""
-                compteurRequetes += 1
-                requete = R.safe_query(req)
-                res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)
-                compteurBatiments += batiments
-                
-                progress=j/max_length*100
-                progress=round(progress)
-                progress_container.markdown(
-                    f"""<div class="progress-bar" style="width: {progress}%;">
-                    {progress}%
-                </div>""",
-                    unsafe_allow_html=True
-                )
-            if res != {} :
-                json.dump(res, f1)
-                listeFichiers.append(fName+".json")
-            print("Nombre de requêtes exécutées :",compteurRequetes)            
-            print("Nombre de bâtiments trouvés :",compteurBatiments) 
+            progress=j/max_length*100
+            progress=round(progress)
+            progress_container.markdown(
+                f"""<div class="progress-bar" style="width: {progress}%;">
+                {progress}%
+            </div>""",
+                unsafe_allow_html=True
+            )
+
+        time.sleep(1)
+        
+        for (var, flag) in varName :
+            j+=1         
+            #pas sur, a virer ?
+            osm_data = get_overpass_data(var)
+            if j <= 1:
+                if osm_data:
+                    df = process_osm_data(osm_data)
+                    df["flag"] = flag   
+                else:
+                    print("No data")
+            if j > 1:
+                if osm_data:
+                    df_trans = process_osm_data(osm_data)
+                    df_trans["flag"] = flag   
+                    df = pd.concat([df, df_trans], ignore_index=True)
+                else:
+                    print("No data")
+            
+            progress=j/max_length*100
+            progress=round(progress)
+            progress_container.markdown(
+                f"""<div class="progress-bar" style="width: {progress}%;">
+                {progress}%
+            </div>""",
+                unsafe_allow_html=True
+            )
+
+        #print("Nombre de requêtes exécutées :",compteurRequetes)            
+        #print("Nombre de bâtiments trouvés :",compteurBatiments) 
         
         print("Temps de génération fichier/s :", str(round(temps-2))+" secondes.\n") #-2 car on a fait time.sleep(1)*2
         print(listeFichiers)
-        return listeFichiers, []
+        return df, []

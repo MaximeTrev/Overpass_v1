@@ -296,7 +296,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                     df = pd.concat([df, df_trans], ignore_index=True)
                 else:
                     print("No data")
-                
+            
             progress=j/max_length*100
             progress=round(progress)
             progress_container.markdown(
@@ -308,7 +308,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
 
         time.sleep(1)
         
-        for (var, flag) in varName :
+        for (var, flag) in varName_ :
             j+=1         
             #pas sur, a virer ?
             osm_data = get_overpass_data(var)

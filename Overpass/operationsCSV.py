@@ -288,7 +288,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 
                 #req = 'node [name='+'"'+var+'"];out;'
                 #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
-                req = f"""(node[name='{var}';
+                req = f"""(node[name='{var}'];
                               way[name='{var}'];
                               relation[name='{var}'];
                              );
@@ -315,7 +315,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 
                 #req ='node [name='+'"'+var+'"];out;'
                 #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
-                req = f"""(node[name='{var}';
+                req = f"""(node[name='{var}'];
                               way[name='{var}'];
                               relation[name='{var}'];
                              );

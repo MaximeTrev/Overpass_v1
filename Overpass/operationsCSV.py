@@ -291,7 +291,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 req = f"""(node[name='{var}'];
                               way[name='{var}'];
                               relation[name='{var}'];
-                             );
+                             );out center;
                             ""
                 compteurRequetes += 1
                 requete = R.safe_query(req)
@@ -318,7 +318,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 req = f"""(node[name='{var}'];
                               way[name='{var}'];
                               relation[name='{var}'];
-                             );
+                             );out center;
                             ;"""
                 compteurRequetes += 1
                 requete = R.safe_query(req)

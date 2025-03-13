@@ -111,7 +111,7 @@ class Requetes :
 
         for way in requete.ways:
             dictOcc = {}
-            datas, coord = loadDatas(way)
+            datas, coord = loadDatas(way, node = False)
             
             if datas["name"] != nomInitial:
                 datas["name"] = nomInitial
@@ -133,7 +133,7 @@ class Requetes :
         # Traitement des relations
         for relation in requete.relations:
             dictOcc = {}
-            datas, coord = loadDatas(relation)
+            datas, coord = loadDatas(relation, node = False)
             
             if datas["name"] != nomInitial:
                 datas["name"] = nomInitial

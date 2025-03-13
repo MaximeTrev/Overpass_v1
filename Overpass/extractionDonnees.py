@@ -5,7 +5,7 @@ import streamlit as st
     
 def loadDatas(data, node = True):
     if isinstance(data):
-        if node = True:
+        if node == True:
             lat = data.lat
             lon = data.lon
         else:

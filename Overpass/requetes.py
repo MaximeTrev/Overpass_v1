@@ -61,8 +61,8 @@ class Requetes :
         results.append({"name": element.get("tags", {}).get("name", "Unknown"),
                         "type": element["type"],
                         "latitude": lat,
-                        "longitude": lon},
-                        "amenity": amenity}
+                        "longitude": lon,
+                        "amenity": amenity
                         "shop": shop}
                       )
         """

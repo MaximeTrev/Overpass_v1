@@ -230,6 +230,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                             out center;"""
                         compteurRequetes += 1
                         requete = R.safe_query(req)
+                        print(requete)
                         res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)
                         compteurBatiments += batiments
                     if res != {} :

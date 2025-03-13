@@ -42,29 +42,29 @@ class Requetes :
         results = []
         for element in elements:
             if element["type"] == "node":
-            # Pour un nœud, on récupère directement ses coordonnées
-            lat, lon = element["lat"], element["lon"]
-            amenity =  element["amenity"]
-            shop =  element["shop"]
-        elif element["type"] in ["way", "relation"]:
-            # Pour les ways et relations, on utilise le "center"
-            if "center" in element:
-                lat, lon = element["center"]["lat"], element["center"]["lon"]
+                # Pour un nœud, on récupère directement ses coordonnées
+                lat, lon = element["lat"], element["lon"]
                 amenity =  element["amenity"]
                 shop =  element["shop"]
+            elif element["type"] in ["way", "relation"]:
+                # Pour les ways et relations, on utilise le "center"
+                if "center" in element:
+                    lat, lon = element["center"]["lat"], element["center"]["lon"]
+                    amenity =  element["amenity"]
+                    shop =  element["shop"]
+                else:
+                    continue  # Si pas de centre, on ignore
             else:
-                continue  # Si pas de centre, on ignore
-        else:
-            continue
+                continue
         
 
-        results.append({"name": element.get("tags", {}).get("name", "Unknown"),
-                        "type": element["type"],
-                        "latitude": lat,
-                        "longitude": lon,
-                        "amenity": amenity
-                        "shop": shop}
-                      )
+            results.append({"name": element.get("tags", {}).get("name", "Unknown"),
+                            "type": element["type"],
+                            "latitude": lat,
+                            "longitude": lon,
+                            "amenity": amenity
+                            "shop": shop}
+                          )
         """
         for occ in requete.nodes :
             dictOcc = {}

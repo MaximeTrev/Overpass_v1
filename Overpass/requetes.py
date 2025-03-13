@@ -38,7 +38,7 @@ class Requetes :
 
         """
         
-        #print("Nombre de batiments :", len(requete.nodes))
+        """
         dictOcc = []
         for element in requete:
             if element["type"] == "node":
@@ -67,6 +67,8 @@ class Requetes :
                           )
             i+= 1
         """
+        
+        """
         for occ in requete.nodes :
             dictOcc = {}
             
@@ -88,5 +90,68 @@ class Requetes :
             dictDatas["iteration "+str(i)]=dictOcc
             
             i+=1"""
-        return dictDatas, i, len(requete.nodes)
+            
+        for occ in requete.nodes :
+            dictOcc = {}
+            
+            datas, coord = loadDatas(occ)
+            if datas["name"] != nomInitial :
+                datas["name"]=nomInitial
+            if datas["amenity"]==None:
+                datas["amenity"]='X'
+            if datas["shop"]==None:
+                    datas["shop"]='X'
+            # -----------------------------------------------------
+            # création du dictionnaire
+            dictOcc["coord"]=str(coord[0])+"/"+ str(coord[1])
+            dictOcc["flag"]=str(flag)
+            for data in datas :
+                dictOcc[data] = datas[data]
+            dictDatas["iteration "+str(i)]=dictOcc
+
+        for way in requete.ways:
+            dictOcc = {}
+            datas, coord = loadDatas(way)
+            
+            if datas["name"] != nomInitial:
+                datas["name"] = nomInitial
+            if datas["amenity"] is None:
+                datas["amenity"] = 'X'
+            if datas["shop"] is None:
+                datas["shop"] = 'X'
+            
+            # Création du dictionnaire pour les ways
+            dictOcc["coord"] = str(coord[0]) + "/" + str(coord[1])
+            dictOcc["flag"] = str(flag)
+            
+            for data in datas:
+                dictOcc[data] = datas[data]
+            
+            dictDatas["iteration " + str(i)] = dictOcc
+            i += 1
+    
+        # Traitement des relations
+        for relation in requete.relations:
+            dictOcc = {}
+            datas, coord = loadDatas(relation)
+            
+            if datas["name"] != nomInitial:
+                datas["name"] = nomInitial
+            if datas["amenity"] is None:
+                datas["amenity"] = 'X'
+            if datas["shop"] is None:
+                datas["shop"] = 'X'
+            
+            # Création du dictionnaire pour les relations
+            dictOcc["coord"] = str(coord[0]) + "/" + str(coord[1])
+            dictOcc["flag"] = str(flag)
+            
+            for data in datas:
+                dictOcc[data] = datas[data]
+            
+            dictDatas["iteration " + str(i)] = dictOcc
+                    
+            i+=1
+            buildings = len(requete.nodes) + len(requete.ways) + len(requete.relations)
+        return dictDatas, i, buildings
 

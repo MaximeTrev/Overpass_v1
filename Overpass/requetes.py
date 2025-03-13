@@ -62,7 +62,7 @@ class Requetes :
                             "type": element["type"],
                             "latitude": lat,
                             "longitude": lon,
-                            "amenity": amenity
+                            "amenity": amenity,
                             "shop": shop}
                           )
         """

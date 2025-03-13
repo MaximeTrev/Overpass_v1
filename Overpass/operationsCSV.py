@@ -338,5 +338,6 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
         #print("Nombre de bâtiments trouvés :",compteurBatiments) 
         
         print("Temps de génération fichier/s :", str(round(temps-2))+" secondes.\n") #-2 car on a fait time.sleep(1)*2
-        print(listeFichiers)
+        print("Building(s): ", len(df))
+        print(df)
         return df, []

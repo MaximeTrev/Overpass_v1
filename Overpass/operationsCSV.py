@@ -6,6 +6,7 @@ import unidecode as u
 import os
 
 from requetes import Requetes as R
+from requetes import *
 
 
 

@@ -205,7 +205,14 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                         # --------------
                         
                         #req = 'node [name='+'"'+var+'"];out;'
-                        req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
+                        #possiblement faire 3 requetes: node, way, relation et extraire separement node way etc plutot que juste les nodes
+                        #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
+                        req = """node[name='+'"'+var+'"];
+                              way[name='+'"'+var+'"];
+                              relation[name='+'"'+var+'"];
+                             ;
+                            out center;"""
+                        
                         compteurRequetes += 1
                         requete = R.safe_query(req)
                         res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)
@@ -217,7 +224,12 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                         # --------------
                         
                         #req ='node [name='+'"'+var+'"];out;'
-                        req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
+                        #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
+                        req = """node[name='+'"'+var+'"];
+                              way[name='+'"'+var+'"];
+                              relation[name='+'"'+var+'"];
+                             ;
+                            out center;"""
                         compteurRequetes += 1
                         requete = R.safe_query(req)
                         res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)
@@ -275,7 +287,12 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 # --------------
                 
                 #req = 'node [name='+'"'+var+'"];out;'
-                req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
+                #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
+                req = """node[name='+'"'+var+'"];
+                              way[name='+'"'+var+'"];
+                              relation[name='+'"'+var+'"];
+                             ;
+                            out center;"""
                 compteurRequetes += 1
                 requete = R.safe_query(req)
                 res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)
@@ -297,7 +314,12 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 # --------------
                 
                 #req ='node [name='+'"'+var+'"];out;'
-                req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
+                #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
+                req = """node[name='+'"'+var+'"];
+                              way[name='+'"'+var+'"];
+                              relation[name='+'"'+var+'"];
+                             ;
+                            out center;"""
                 compteurRequetes += 1
                 requete = R.safe_query(req)
                 res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)

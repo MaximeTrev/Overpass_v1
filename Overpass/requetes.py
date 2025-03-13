@@ -40,7 +40,7 @@ class Requetes :
         
         #print("Nombre de batiments :", len(requete.nodes))
         dictOcc = []
-        for element in elements:
+        for element in requete:
             if element["type"] == "node":
                 # Pour un nœud, on récupère directement ses coordonnées
                 lat, lon = element["lat"], element["lon"]

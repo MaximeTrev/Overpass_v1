@@ -39,7 +39,7 @@ class Requetes :
         """
         
         #print("Nombre de batiments :", len(requete.nodes))
-        results = []
+        dictOcc = []
         for element in elements:
             if element["type"] == "node":
                 # Pour un nœud, on récupère directement ses coordonnées
@@ -58,13 +58,14 @@ class Requetes :
                 continue
         
 
-            results.append({"name": element.get("tags", {}).get("name", "Unknown"),
+            dictOcc.append({"name": element.get("tags", {}).get("name", "Unknown"),
                             "type": element["type"],
                             "latitude": lat,
                             "longitude": lon,
                             "amenity": amenity,
                             "shop": shop}
                           )
+            i+= 1
         """
         for occ in requete.nodes :
             dictOcc = {}
@@ -84,8 +85,8 @@ class Requetes :
             
             for data in datas :
                 dictOcc[data] = datas[data]
-            dictDatas["iteration "+str(i)]=dictOcc"""
+            dictDatas["iteration "+str(i)]=dictOcc
             
-                i+=1
+            i+=1"""
         return dictDatas, i, len(requete.nodes)
 

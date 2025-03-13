@@ -1,6 +1,61 @@
 import overpy, time
 from extractionDonnees import loadDatas
 
+def get_overpass_data(company_name):
+    """
+    Interroge l'API Overpass avec overpy pour récupérer les données OSM d'une entreprise.
+    """
+    api = overpy.Overpass()
+    query = f"""[out:json][timeout:180];(node["name"="{company_name}"];way["name"="{company_name}"];relation["name"="{company_name}"];);out center;"""  
+    # Ajout de "out center;" pour forcer le centre des ways et relations
+
+    try:
+        result = api.query(query)
+        return result
+    except Exception as e:
+        print(f"Erreur lors de la requête Overpass : {e}")
+        return None
+
+def process_osm_data(result):
+    """
+    Traite les données OSM pour extraire :
+    - Les nodes avec leurs coordonnées
+    - Le centre des ways et relations
+    """
+    results = []
+
+    # Traitement des nœuds
+    for node in result.nodes:
+        results.append({
+            "name": node.tags.get("name", "Unknown"),
+            "type": "node",
+            "latitude": float(node.lat),
+            "longitude": float(node.lon)
+        })
+
+    # Traitement des ways (utilisation du "center" directement)
+    for way in result.ways:
+        if hasattr(way, "center_lat") and hasattr(way, "center_lon"):
+            results.append({
+                "name": way.tags.get("name", "Unknown"),
+                "type": "way",
+                "latitude": float(way.center_lat),
+                "longitude": float(way.center_lon)
+            })
+
+    # Traitement des relations (utilisation du "center" si dispo)
+    for relation in result.relations:
+        if hasattr(relation, "center_lat") and hasattr(relation, "center_lon"):
+            results.append({
+                "name": relation.tags.get("name", "Unknown"),
+                "type": "relation",
+                "latitude": float(relation.center_lat),
+                "longitude": float(relation.center_lon)
+            })
+
+    return pd.DataFrame(results)
+
+
 class Requetes :
     # --- VARIABLE API --- #
     api = overpy.Overpass()

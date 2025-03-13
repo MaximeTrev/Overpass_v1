@@ -283,7 +283,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 j+=1         
                 #req = 'node [name='+'"'+var+'"];out;'
                 #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
-                req = f"""[out:json];(node[name='{var}'];way[name='{var}'];relation[name='{var}'];);"""
+                req = f"""[out:json];(node[name='{var}'];way[name='{var}'];relation[name='{var}'];);out center;"""
                 compteurRequetes += 1
                 requete = R.safe_query(req)
                 print(requete.nodes)
@@ -309,7 +309,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
                 
                 #req ='node [name='+'"'+var+'"];out;'
                 #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
-                req = f"""[out:json];(node[name='{var}'];way[name='{var}'];relation[name='{var}'];);"""
+                req = f"""[out:json];(node[name='{var}'];way[name='{var}'];relation[name='{var}'];);out center;"""
                 compteurRequetes += 1
                 requete = R.safe_query(req)
                 res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)

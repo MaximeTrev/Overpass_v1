@@ -86,6 +86,6 @@ class Requetes :
                 dictOcc[data] = datas[data]
             dictDatas["iteration "+str(i)]=dictOcc"""
             
-            i+=1
+                i+=1
         return dictDatas, i, len(requete.nodes)
 

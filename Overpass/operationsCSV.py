@@ -174,11 +174,6 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
         temps = 0.0
         compteurRequetes, compteurBatiments = 0, 0
         
-        print(varName)
-
-        IndNomInitial = varName.index((fName, 0))
-        (nomInitial, _) = varName[IndNomInitial]
-
         max_length=len(varName)+len(varName_)
 
         df_entreprises = pd.DataFrame(liste_entreprises, columns=["Nom"])

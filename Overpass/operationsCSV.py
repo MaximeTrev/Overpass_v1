@@ -176,17 +176,11 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
             if fName_ != fName[i] :
                 varName_.append(__var_name__(fName_, True)) #True -> pas d'accent, donc le nom initial n'est pas présent
             i += 1
-            """
-            IndNomInitial.append(varName.index((fName, 0)))
-            a, b =
-            a,b= varName[IndNomInitial]
-            nomInitial.append(a)
-            _.append(b)"""
       
         temps = 0.0
         compteurRequetes, compteurBatiments = 0, 0
         
-
+        print(varName)
 
         IndNomInitial = varName.index((fName, 0))
         (nomInitial, _) = varName[IndNomInitial]

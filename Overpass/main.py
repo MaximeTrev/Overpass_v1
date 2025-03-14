@@ -43,9 +43,9 @@ def show_map(df):
     for _, row in df.iterrows():
         #if occ >500 :
             #break
-        _popup=row["Lat"]+" "+row["Long"]+"\n"
-        _popup +="Name:"+row["Name"]+"\n"
-        _popup += "Amenity:"+row["Amenity"]
+        _popup=row["lat"]+" "+row["long"]+"\n"
+        _popup +="name:"+row["name"]+"\n"
+        _popup += "amenity:"+row["amenity"]
         cssClassPopup = css.__CssClassPopup()
         _popup = f"""
         <div style="{cssClassPopup}">
@@ -55,7 +55,7 @@ def show_map(df):
         iframe = IFrame(_popup, width=105, height=80)  # Ajuster la taille ici
         popup = folium.Popup(iframe, max_width=250)  # Ajuster la largeur max du popup
         folium.CircleMarker(
-            location=[float(row["Lat"]), float(row["Long"])],
+            location=[float(row["lat"]), float(row["long"])],
             radius=6,
             weight=0,
             color="blue",
@@ -80,8 +80,6 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         )
         if entreprise != "":
             listeFichiers, _ = _csv.fromCSVtoJSON(option, progress_container, entreprise, "")
-            st.write(f"Results: {listeFichiers.shape[0]}")
-            st.write(listeFichiers)
             #dfOut = _csv.fromJSONtoDataFrame(listeFichiers)
             dfOut, Pays = mc.findCountry(listeFichiers)
             st.write(download)

@@ -11,7 +11,7 @@ gdf_countries = gpd.GeoDataFrame(countries)
 def findCountry(df, Pays=[]):
     # 🔄 Convertir les latitudes/longitudes en objets géographiques (Points)
     # 🔄 Convertir les coordonnées en objets géographiques (Points)
-    df["geometry"] = df.apply(lambda row: Point(float(row["Long"]), float(row["Lat"])), axis=1)
+    df["geometry"] = df.apply(lambda row: Point(float(row["long"]), float(row["lat"])), axis=1)
     gdf_out = gpd.GeoDataFrame(df, geometry="geometry", crs="EPSG:4326")
 
     # 🔗 Faire la jointure spatiale

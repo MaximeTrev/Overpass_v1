@@ -92,8 +92,6 @@ def __var_name__(name, booleen = False): #sous-fonction
     out.append((name.capitalize()))
     tests = [" ", "-","_"]
     test_esp = False
-    
-    
     for test in tests:
         #BLoc pour vérifier si 2 mots (ou plus) dans la chaîne
         #marche pas si plusieurs "sépérateurs" pour une chaîne
@@ -117,7 +115,6 @@ def __var_name__(name, booleen = False): #sous-fonction
     
     i = 1
     for val in out :
-        
         if val == name and not booleen :
             (val, index) = (name, 0) #flag initial
             val = (val, index)
@@ -167,24 +164,27 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
             return None, []
 
         liste_entreprises = df_entreprises.iloc[:, 0].tolist()
-        fname = []
+        fname, varName, varName_ = [], [], []
+        #IndNomInitial, nomInitial, _ = [], [], []
         for entreprise in liste_entreprises:
             print(entreprise)
-            fname.append(__suppr__(entreprise, ListeLabel))
-            print("Name :", fname)
-        fName = fname
-        
+            fName.append(__suppr__(entreprise, ListeLabel))
+            print("Name :", fName)
+            varName.append(__var_name__(fName)) #avec accents
+            fName_ = u.unidecode(fName)
+            if fName_ != fName :
+                varName_.append(__var_name__(fName_, True)) #True -> pas d'accent, donc le nom initial n'est pas présent
+            """
+            IndNomInitial.append(varName.index((fName, 0)))
+            a, b =
+            a,b= varName[IndNomInitial]
+            nomInitial.append(a)
+            _.append(b)"""
+      
         temps = 0.0
         compteurRequetes, compteurBatiments = 0, 0
         
-        varName, varName_ = [], []
-        varName = __var_name__(fName) #avec accents
-        #print("varName :", varName)
-        
-        fName_ = u.unidecode(fName)
-        if fName_ != fName :
-            varName_ = __var_name__(fName_, True) #True -> pas d'accent, donc le nom initial n'est pas présent
-            #print("varName_ :",varName_)
+
 
         IndNomInitial = varName.index((fName, 0))
         (nomInitial, _) = varName[IndNomInitial]

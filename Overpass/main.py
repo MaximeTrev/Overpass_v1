@@ -120,11 +120,11 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             with st.expander("Select companie(s)", expanded=False):
                 selected_names = st.multiselect(
                     "Companie(s):", 
-                    options=st.session_state.dfOut["Name"].unique(),
-                    default=st.session_state.dfOut["Name"].unique()  # Tout sélectionné par défaut
+                    options=st.session_state.dfOut["name"].unique(),
+                    default=st.session_state.dfOut["name"].unique()  # Tout sélectionné par défaut
                 )
             # Appliquer le filtre sur dfOut
-            filtered_df = st.session_state.dfOut[st.session_state.dfOut["Name"].isin(selected_names)]
+            filtered_df = st.session_state.dfOut[st.session_state.dfOut["name"].isin(selected_names)]
             pays_counts = get_pays_counts(filtered_df)
         
             # Limiter à 10 catégories max
@@ -151,11 +151,11 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             with st.expander("Select type(s) of businness:", expanded=False):
                 selected_business = st.multiselect(
                     "type(s) of businness:", 
-                    options=st.session_state.dfOut["Amenity"].unique(),
-                    default=st.session_state.dfOut["Amenity"].unique()  # Tout sélectionné par défaut
+                    options=st.session_state.dfOut["amenity"].unique(),
+                    default=st.session_state.dfOut["amenity"].unique()  # Tout sélectionné par défaut
                 )
             # Appliquer le filtre sur dfOut
-            filtered_df2 = st.session_state.dfOut[st.session_state.dfOut["Amenity"].isin(selected_business)]
+            filtered_df2 = st.session_state.dfOut[st.session_state.dfOut["amenity"].isin(selected_business)]
             pays_counts2 = get_pays_counts(filtered_df2)
         
             # Limiter à 10 catégories max

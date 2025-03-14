@@ -86,7 +86,6 @@ def fromJSONtoDataFrame(Fichiers) : #Fichiers une liste de fichiers (JSON)
 
 def __var_name__(name, booleen = False): #sous-fonction
     out = [] # 0 --> nom initial et on boucle direct dessus ?
-    out.append((name))
     out.append((name.upper()))
     out.append((name.lower()))
     out.append((name.capitalize()))
@@ -115,11 +114,7 @@ def __var_name__(name, booleen = False): #sous-fonction
     
     i = 1
     for val in out :
-        if val == name and not booleen :
-            (val, index) = (name, 0) #flag initial
-            val = (val, index)
-        else :
-            val = (val, i)
+        val = (val, i)
         liste.append(val)
         i += 1
     return liste # --> set avec toutes les variations de noms

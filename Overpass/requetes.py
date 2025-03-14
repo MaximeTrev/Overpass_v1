@@ -62,7 +62,7 @@ def process_osm_data(result):
 def extract_tags(element):
     """ Récupère les tags spécifiques d'un élément OSM """
     tags_list = ["source", "amenity", "place", "shop", "power", "highway"]
-    return {tag: element.tags.get(tag, None) for tag in tags_list}
+    return {tag: element.tags.get(tag, "N/A") for tag in tags_list}
 
 
 class Requetes :

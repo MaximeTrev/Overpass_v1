@@ -31,7 +31,8 @@ def process_osm_data(result):
             "name": node.tags.get("name", "Unknown"),
             "type": "node",
             "latitude": float(node.lat),
-            "longitude": float(node.lon)
+            "longitude": float(node.lon),
+            **extract_tags(node)  # Ajout des tags
         })
 
     # Traitement des ways (utilisation du "center" directement)
@@ -41,7 +42,8 @@ def process_osm_data(result):
                 "name": way.tags.get("name", "Unknown"),
                 "type": "way",
                 "latitude": float(way.center_lat),
-                "longitude": float(way.center_lon)
+                "longitude": float(way.center_lon),
+                **extract_tags(node)  # Ajout des tags
             })
 
     # Traitement des relations (utilisation du "center" si dispo)
@@ -51,10 +53,16 @@ def process_osm_data(result):
                 "name": relation.tags.get("name", "Unknown"),
                 "type": "relation",
                 "latitude": float(relation.center_lat),
-                "longitude": float(relation.center_lon)
+                "longitude": float(relation.center_lon),
+                **extract_tags(node)  # Ajout des tags
             })
 
     return pd.DataFrame(results)
+
+def extract_tags(element):
+    """ Récupère les tags spécifiques d'un élément OSM """
+    tags_list = ["source", "amenity", "place", "shop", "power", "highway"]
+    return {tag: element.tags.get(tag, None) for tag in tags_list}
 
 
 class Requetes :

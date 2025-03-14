@@ -30,8 +30,8 @@ def process_osm_data(result):
         results.append({
             "name": node.tags.get("name", "Unknown"),
             "type": "node",
-            "latitude": float(node.lat),
-            "longitude": float(node.lon),
+            "lat": float(node.lat),
+            "long": float(node.lon),
             **extract_tags(node)  # Ajout des tags
         })
 
@@ -41,8 +41,8 @@ def process_osm_data(result):
             results.append({
                 "name": way.tags.get("name", "Unknown"),
                 "type": "way",
-                "latitude": float(way.center_lat),
-                "longitude": float(way.center_lon),
+                "lat": float(way.center_lat),
+                "long": float(way.center_lon),
                 **extract_tags(node)  # Ajout des tags
             })
 
@@ -52,8 +52,8 @@ def process_osm_data(result):
             results.append({
                 "name": relation.tags.get("name", "Unknown"),
                 "type": "relation",
-                "latitude": float(relation.center_lat),
-                "longitude": float(relation.center_lon),
+                "lat": float(relation.center_lat),
+                "long": float(relation.center_lon),
                 **extract_tags(node)  # Ajout des tags
             })
 

@@ -166,7 +166,29 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
             st.error(f"Erreur de lecture du fichier CSV : {e}")
             return None, []
 
-        st.write(df_entreprises)
+        liste_entreprises = df_entreprises.iloc[:, 0].tolist()
+        fname = __suppr__(liste_entreprises, ListeLabel) 
+        print("Name :", fname)
+        fName = fname
+        
+        temps = 0.0
+        compteurRequetes, compteurBatiments = 0, 0
+        
+        varName, varName_ = [], []
+        varName = __var_name__(fName) #avec accents
+        #print("varName :", varName)
+        
+        fName_ = u.unidecode(fName)
+        if fName_ != fName :
+            varName_ = __var_name__(fName_, True) #True -> pas d'accent, donc le nom initial n'est pas présent
+            #print("varName_ :",varName_)
+
+        IndNomInitial = varName.index((fName, 0))
+        (nomInitial, _) = varName[IndNomInitial]
+
+        max_length=len(varName)+len(varName_)
+
+        df_entreprises = pd.DataFrame(liste_entreprises, columns=["Nom"])
 
         listeFichiers = []
         all_results = []  # Stocke tous les résultats pour concaténation
@@ -185,7 +207,6 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
         if all_results:
             df_final = pd.concat(all_results, ignore_index=True)
             print("Données combinées pour toutes les entreprises du fichier.")
-            st.write(df_final)
         else:
             df_final = pd.DataFrame()
             print("Aucune donnée extraite.")

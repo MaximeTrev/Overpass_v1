@@ -154,7 +154,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
 
         with col_fig2:
             #st.write("Select country(ies)")
-            with st.expander("Select type(s) of businness:", expanded=False):
+            with st.expander("Select country(ies)", expanded=False):
                 selected_country = st.multiselect(
                     "Country(ies):", 
                     options=st.session_state.dfOut["pays"].unique(),

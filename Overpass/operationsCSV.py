@@ -185,6 +185,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
         if all_results:
             df_final = pd.concat(all_results, ignore_index=True)
             print("Données combinées pour toutes les entreprises du fichier.")
+            st.write(all_results)
         else:
             df_final = pd.DataFrame()
             print("Aucune donnée extraite.")

@@ -153,21 +153,27 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
     entreprises = []
         
     if FichierCSV != "":
+
         FichierCSV.seek(0)  # Revenir au début du fichier
 
         # Lire le fichier en ignorant le BOM UTF-8
         file_content = FichierCSV.getvalue().decode("utf-8-sig")
     
-        # Lire le CSV en tant que DataFrame pandas
-        try:
-            df_entreprises = pd.read_csv(pd.io.common.StringIO(file_content), sep="|")
-            st.write(df_entreprises)
-        except Exception as e:
-            st.error(f"Erreur de lecture du fichier CSV : {e}")
-            return None, []
+        # Diviser en lignes sans supprimer les espaces
+        lines = file_content.split("\r\n")
+    
+        # Vérifier qu'on a bien un en-tête et des données
+        if len(lines) > 1:
+            spamreader = pd.DataFrame({lines[0]: lines[1:]})  # Première ligne devient le nom de colonne
+            entreprises = lines[1:]
+        else:
+            st.error("Le fichier ne contient pas assez de données exploitables.")
+        st.write(spamreader)
+        st.write(entreprises)
 
         listeFichiers = []
         all_results = []  # Stocke tous les résultats pour concaténation
+        
 
         for idx, row in df_entreprises.iterrows():
             entreprise = row.iloc[0]  # Nom de l'entreprise

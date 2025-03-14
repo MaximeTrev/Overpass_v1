@@ -102,9 +102,9 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         
         if uploaded_file is not None:
             # Initialisation des variable
-            listeFichiers_, entreprises = _csv.fromCSVtoJSON(option, progress_container, "", uploaded_file)
+            listeFichiers, entreprises = _csv.fromCSVtoJSON(option, progress_container, "", uploaded_file)
             #listeFichiers += listeFichiers_
-            
+            st.write(listeFichiers)
             #dfOut = _csv.fromJSONtoDataFrame(listeFichiers)
             dfOut, Pays = mc.findCountry(listeFichiers)
             st.write(download)

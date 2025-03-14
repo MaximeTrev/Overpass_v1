@@ -177,8 +177,6 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     except:
         pass
     
-    for JSON in listeFichiers :
-        os.remove("json/"+JSON)
     
 def load() :
     # Création de la disposition en trois colonnes

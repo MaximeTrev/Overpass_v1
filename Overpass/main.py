@@ -37,6 +37,11 @@ def get_pays_counts(df):
     pays_counts.columns = ["pays", "count"]
     return pays_counts
 
+def get_amenuty_counts(df):
+    amenity_counts = df["amenity"].value_counts().reset_index()
+    amenity_counts.columns = ["amenity", "count"]
+    return amenity_counts
+
 def show_map(df):
     m = folium.Map(location=[48.8566, 2.3522], zoom_start=5)
     occ = 0
@@ -157,7 +162,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 )
             # Appliquer le filtre sur dfOut
             filtered_df2 = st.session_state.dfOut[st.session_state.dfOut["pays"].isin(selected_country)]
-            amenity_counts = get_pays_counts(filtered_df2)
+            amenity_counts = get_amenuty_counts(filtered_df2)
         
             # Limiter à 10 catégories max
             if len(amenity_counts) > 10:

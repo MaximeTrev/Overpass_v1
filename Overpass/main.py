@@ -80,6 +80,8 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         )
         if entreprise != "":
             listeFichiers, _ = _csv.fromCSVtoJSON(option, progress_container, entreprise, "")
+            st.write(f"Results: {listeFichiers.shape[0]}")
+            st.write(listeFichiers)
             #dfOut = _csv.fromJSONtoDataFrame(listeFichiers)
             dfOut, Pays = mc.findCountry(listeFichiers)
             st.write(download)

@@ -170,7 +170,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
         fname = []
         for entreprise in liste_entreprises:
             print(entreprise)
-            fname.append(__suppr__(liste_entreprises, ListeLabel))
+            fname.append(__suppr__(entreprise, ListeLabel))
             print("Name :", fname)
         fName = fname
         

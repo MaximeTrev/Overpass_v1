@@ -151,8 +151,6 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
     print("Options :s \n 1 - Générer un fichier CSV depuis un autre fichier CSV. \n 2 - Générer un fichier CSV depuis une seule entreprise. \n")
     
     entreprises = []
-    if not os.path.exists("json"):
-        os.makedirs("json")
         
     if FichierCSV != "":
         FichierCSV.seek(0)  # Revenir au début du fichier
@@ -160,100 +158,34 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
         # Lire le fichier en ignorant le BOM UTF-8
         file_content = FichierCSV.getvalue().decode("utf-8-sig")
     
-        # Diviser en lignes sans supprimer les espaces
-        lines = file_content.split("\r\n")
-    
-        # Vérifier qu'on a bien un en-tête et des données
-        if len(lines) > 1:
-            spamreader = pd.DataFrame({lines[0]: lines[1:]})  # Première ligne devient le nom de colonne
-            entreprises = lines[1:]
-        else:
-            st.error("Le fichier ne contient pas assez de données exploitables.")
-        #"csv/datas2.csv"
+        # Lire le CSV en tant que DataFrame pandas
+        try:
+            df_entreprises = pd.read_csv(pd.io.common.StringIO(file_content), sep="|")
+        except Exception as e:
+            st.error(f"Erreur de lecture du fichier CSV : {e}")
+            return None, []
+
         listeFichiers = []
-        temps = 0.0
-        compteurRequetes, compteurBatiments = 0, 0
-        j=0
-        max_length = len(list(spamreader.iterrows()))-1  #enlever la ligne du nom de colonne(s)
-        
-        for occ, row in spamreader.iterrows():
+        all_results = []  # Stocke tous les résultats pour concaténation
+
+        for idx, row in df_entreprises.iterrows():
+            entreprise = row.iloc[0]  # Nom de l'entreprise
+            print(f"Traitement de l'entreprise : {entreprise}")
+
+            df_result, _ = fromCSVtoJSON(option, progress_container, NomEntreprise=entreprise)
             
-            i=1
-            j+=1
-            fName = row.iloc[0]
-            fname = __suppr__(fName, ListeLabel)
-            fName = fname
-            
-            
-            varName, varName_ = [], []
-            varName = __var_name__(fName) #avec accents
-            #print("varName :", varName)
-            
-            fName_ = u.unidecode(fName)
-            if fName_ != fName :
-                varName_ = __var_name__(fName_, True) #True -> pas d'accent, donc le nom initial n'est pas présent
-                #print("varName_ :",varName_)
-    
-            IndNomInitial = varName.index((fName, 0))
-            (nomInitial, _) = varName[IndNomInitial]
- 
-            time.sleep(1)
-            res = {}
-            try:
-                with open("json/"+fName+".json", "w", encoding="utf-8") as f1:
-                    for (var, flag) in varName :
-                        
-                        # --------------
-                        
-                        #req = 'node [name='+'"'+var+'"];out;'
-                        #possiblement faire 3 requetes: node, way, relation et extraire separement node way etc plutot que juste les nodes
-                        #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
-                        req = """node[name='+'"'+var+'"];
-                              way[name='+'"'+var+'"];
-                              relation[name='+'"'+var+'"];
-                             ;
-                            out center;"""
-                        
-                        compteurRequetes += 1
-                        requete = R.safe_query(req)
-                        res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)
-                        compteurBatiments += batiments
-                        
-                    time.sleep(1)    
-                    for (var, flag) in varName_ :
-                        
-                        # --------------
-                        
-                        #req ='node [name='+'"'+var+'"];out;'
-                        #req = 'nwr [name='+'"'+var+'"];(._;>;);out;'
-                        req = """node[name='+'"'+var+'"];
-                              way[name='+'"'+var+'"];
-                              relation[name='+'"'+var+'"];
-                             ;
-                            out center;"""
-                        compteurRequetes += 1
-                        requete = R.safe_query(req)
-                        res, i, batiments = R.requestToDict(requete, flag, nomInitial, res, i)
-                        compteurBatiments += batiments
-                    if res != {} :
-                        json.dump(res, f1)
-                        listeFichiers.append(fName+".json")
-                progress=j/max_length*100
-                progress=round(progress)
-                progress_container.markdown(
-                    f"""<div class="progress-bar" style="width: {progress}%;">
-                    {progress}%
-                </div>""",
-                    unsafe_allow_html=True
-                )
-            except:
-                print(fName, ": On ne peut pas créer le fichier.")
-            print("Nombre de requêtes exécutées :",compteurRequetes)            
-            print("Nombre de bâtiments trouvés :",compteurBatiments)
-        
-        print("Temps de génération fichier/s :", str(round(temps-2))+" secondes.\n") #-2 car on a fait time.sleep(1)*2
-        print(listeFichiers)
-        return listeFichiers, entreprises
+            if df_result is not None:
+                all_results.append(df_result)
+
+        # Concaténer tous les résultats en un seul DataFrame
+        if all_results:
+            df_final = pd.concat(all_results, ignore_index=True)
+            print("Données combinées pour toutes les entreprises du fichier.")
+        else:
+            df_final = pd.DataFrame()
+            print("Aucune donnée extraite.")
+
+        return df_final, df_entreprises["Nom de l'entreprise"].tolist()
     
     elif NomEntreprise != "" :
         listeFichiers = []

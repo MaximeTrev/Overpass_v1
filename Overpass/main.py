@@ -37,7 +37,7 @@ def get_pays_counts(df):
     pays_counts.columns = ["pays", "count"]
     return pays_counts
 
-def get_amenuty_counts(df):
+def get_amenity_counts(df):
     amenity_counts = df["amenity"].value_counts().reset_index()
     amenity_counts.columns = ["amenity", "count"]
     return amenity_counts
@@ -162,16 +162,16 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 )
             # Appliquer le filtre sur dfOut
             filtered_df2 = st.session_state.dfOut[st.session_state.dfOut["pays"].isin(selected_country)]
-            amenity_counts = get_amenuty_counts(filtered_df2)
+            amenity_counts = get_amenity_counts(filtered_df2)
         
             # Limiter à 10 catégories max
             if len(amenity_counts) > 10:
                 # Trier les amenities par nombre d'occurrences décroissant
                 amenity_counts = amenity_counts.sort_values(by="count", ascending=False)
-                top_pamenity = top_pamenity.iloc[:10]
-                other_count2 = pays_counts2.iloc[10:]["count"].sum()
+                top_amenity = amenity_counts.iloc[:10]
+                other_count2 = amenity_counts.iloc[10:]["count"].sum()
                 other_amenity = pd.DataFrame([["Autres", other_count2]], columns=["amenity", "count"])
-                amenity_counts = pd.concat([top_pays2, other_row2], ignore_index=True)
+                amenity_counts = pd.concat([top_amenity, other_amenity], ignore_index=True)
                 
             # Afficher le Pie Chart
             # Création des colonnes pour la mise en page

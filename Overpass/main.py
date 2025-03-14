@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import folium
 from folium import IFrame
-from streamlit_folium import st_folium 
+from streamlit_folium import folium_static 
 import plotly.graph_objects as go
 import plotly.express as px
 import os
@@ -65,7 +65,7 @@ def show_map(df):
             popup=popup
         ).add_to(m)
         occ+=1
-    st_folium (m)
+    folium_static(m)
 
 def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
     listeFichiers, entreprise = [], ""

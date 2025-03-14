@@ -109,7 +109,6 @@ def __var_name__(name, booleen = False): #sous-fonction
             out.append((newName.lower()))
             out.append((newName.capitalize()))
     
-    out = set(out) #supprime automatiquement les éventuels doublons
     liste = []
     
     i = 1

@@ -161,6 +161,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
         # Lire le CSV en tant que DataFrame pandas
         try:
             df_entreprises = pd.read_csv(pd.io.common.StringIO(file_content), sep="|")
+            st.write(df_entreprises)
         except Exception as e:
             st.error(f"Erreur de lecture du fichier CSV : {e}")
             return None, []

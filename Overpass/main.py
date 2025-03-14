@@ -43,7 +43,7 @@ def show_map(df):
     for _, row in df.iterrows():
         #if occ >500 :
             #break
-        _popup=row["lat"]+" "+row["long"]+"\n"
+        _popup=str(row["lat"]) + " " + str(row["long"]) + "\n"
         _popup +="name:"+row["name"]+"\n"
         _popup += "amenity:"+row["amenity"]
         cssClassPopup = css.__CssClassPopup()

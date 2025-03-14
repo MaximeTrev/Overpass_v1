@@ -199,7 +199,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
             df_final = pd.DataFrame()
             print("Aucune donnée extraite.")
 
-        return df_final, df_entreprises["Nom de l'entreprise"].tolist()
+        return df_final, df_entreprises.iloc[:, 0].tolist()
     
     elif NomEntreprise != "" :
         listeFichiers = []

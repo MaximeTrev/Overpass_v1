@@ -105,8 +105,8 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
             listeFichiers_, entreprises = _csv.fromCSVtoJSON(option, progress_container, "", uploaded_file)
             listeFichiers += listeFichiers_
             
-            dfOut = _csv.fromJSONtoDataFrame(listeFichiers)
-            dfOut, Pays = mc.findCountry(dfOut)
+            #dfOut = _csv.fromJSONtoDataFrame(listeFichiers)
+            dfOut, Pays = mc.findCountry(listeFichiers)
             st.write(download)
             st.write(f"Results: {dfOut.shape[0]}")
             entreprises.pop()

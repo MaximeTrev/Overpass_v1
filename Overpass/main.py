@@ -175,7 +175,7 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
                 
             # Afficher le Pie Chart
             # Création des colonnes pour la mise en page
-            fig2 = px.pie(amenity_counts, names="pays", values="count")
+            fig2 = px.pie(amenity_counts, names="amenity", values="count")
             fig2.update_layout(
                 legend=dict(font=dict(size=8)),
                 margin=dict(l=5, r=50))

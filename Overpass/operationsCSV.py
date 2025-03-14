@@ -167,8 +167,10 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
             return None, []
 
         liste_entreprises = df_entreprises.iloc[:, 0].tolist()
-        fname = __suppr__(liste_entreprises, ListeLabel) 
-        print("Name :", fname)
+        fname = []
+        for entreprise in liste_entreprises:
+            fname.append(__suppr__(liste_entreprises, ListeLabel))
+            print("Name :", fname)
         fName = fname
         
         temps = 0.0

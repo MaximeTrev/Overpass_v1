@@ -166,7 +166,7 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
             st.error(f"Erreur de lecture du fichier CSV : {e}")
             return None, []
 
-        df.write(df_entreprises)
+        st.write(df_entreprises)
 
         listeFichiers = []
         all_results = []  # Stocke tous les résultats pour concaténation

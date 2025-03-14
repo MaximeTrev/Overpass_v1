@@ -168,10 +168,10 @@ def fromCSVtoJSON(option, progress_container, NomEntreprise="", FichierCSV="", i
         #IndNomInitial, nomInitial, _ = [], [], []
         for entreprise in liste_entreprises:
             i = 0
-            print(entreprise)
             fName.append(__suppr__(entreprise, ListeLabel))
-            print("Name :", fName)
+            print("Name :", fName[i])
             varName.append(__var_name__(fName[i])) #avec accents
+            print(varName)
             fName_ = u.unidecode(fName[i])
             if fName_ != fName[i] :
                 varName_.append(__var_name__(fName_, True)) #True -> pas d'accent, donc le nom initial n'est pas présent

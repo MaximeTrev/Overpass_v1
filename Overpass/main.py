@@ -129,6 +129,8 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
         
             # Limiter à 10 catégories max
             if len(pays_counts) > 10:
+                # Trier les pays par nombre d'occurrences décroissant
+                pays_counts = pays_counts.sort_values(by="count", ascending=False)
                 top_pays = pays_counts.iloc[:10]
                 other_count = pays_counts.iloc[10:]["count"].sum()
                 other_row = pd.DataFrame([["Autres", other_count]], columns=["pays", "count"])
@@ -146,28 +148,29 @@ def __main__(progress_container, option, NomEntreprise="", FichierCSV="") :
 
 
         with col_fig2:
-            # Interface utilisateur - Sélection des "Name"
             #st.write("Select type(s) of businness")
             with st.expander("Select type(s) of businness:", expanded=False):
-                selected_business = st.multiselect(
-                    "type(s) of businness:", 
-                    options=st.session_state.dfOut["amenity"].unique(),
-                    default=st.session_state.dfOut["amenity"].unique()  # Tout sélectionné par défaut
+                selected_country = st.multiselect(
+                    "Select country(ies):", 
+                    options=st.session_state.dfOut["pays"].unique(),
+                    default=st.session_state.dfOut["pays"].unique()  # Tout sélectionné par défaut
                 )
             # Appliquer le filtre sur dfOut
-            filtered_df2 = st.session_state.dfOut[st.session_state.dfOut["amenity"].isin(selected_business)]
-            pays_counts2 = get_pays_counts(filtered_df2)
+            filtered_df2 = st.session_state.dfOut[st.session_state.dfOut["pays"].isin(selected_country)]
+            amenity_counts = get_pays_counts(filtered_df2)
         
             # Limiter à 10 catégories max
-            if len(pays_counts2) > 10:
-                top_pays2 = pays_counts2.iloc[:10]
+            if len(amenity_counts) > 10:
+                # Trier les amenities par nombre d'occurrences décroissant
+                amenity_counts = amenity_counts.sort_values(by="count", ascending=False)
+                top_pamenity = top_pamenity.iloc[:10]
                 other_count2 = pays_counts2.iloc[10:]["count"].sum()
-                other_row2 = pd.DataFrame([["Autres", other_count2]], columns=["pays", "count"])
-                pays_counts2 = pd.concat([top_pays2, other_row2], ignore_index=True)
+                other_amenity = pd.DataFrame([["Autres", other_count2]], columns=["amenity", "count"])
+                amenity_counts = pd.concat([top_pays2, other_row2], ignore_index=True)
                 
             # Afficher le Pie Chart
             # Création des colonnes pour la mise en page
-            fig2 = px.pie(pays_counts2, names="pays", values="count")
+            fig2 = px.pie(amenity_counts, names="pays", values="count")
             fig2.update_layout(
                 legend=dict(font=dict(size=8)),
                 margin=dict(l=5, r=50))
